@@ -2,10 +2,11 @@
 # define VECTOR_HPP
 
 #include "VectorIter.hpp"
+#include "Utils.hpp"
 
 namespace ft{
 
-template < typename T, typename Alloc = std::allocator<T> > class VectorClass{
+template < typename T, typename Alloc = std::allocator<T> > class vector{
 	public:
 
 		typedef T											value_type;
@@ -30,17 +31,10 @@ template < typename T, typename Alloc = std::allocator<T> > class VectorClass{
 
 	public:
 
-		// VectorClass() : _limit(0), _size(0), _vec(nullptr){
-		// }
+		explicit vector( const allocator_type& alloc = allocator_type()) :
+		_vec(nullptr), _limit(0), _size(0), _alloc(alloc){}
 
-		explicit VectorClass( const allocator_type& alloc = allocator_type()) :
-			_limit(0),
-			_size(0),
-			_alloc(alloc){
-			_vec = _alloc.allocate(0); // myb replace with _vec(nullptr)
-		}
-
-		explicit VectorClass( size_type count, const value_type& value = value_type(),
+		explicit vector( size_type count, const value_type& value = value_type(),
 						const allocator_type& alloc = allocator_type()) :
 			_limit(count), _size(0), _alloc(alloc){
 
@@ -50,13 +44,18 @@ template < typename T, typename Alloc = std::allocator<T> > class VectorClass{
 		}
 
 		template< class InputIt >
-		VectorClass( InputIt first, InputIt last, const allocator_type& alloc = allocator_type());
+		vector( InputIt first, InputIt last, const allocator_type& alloc = allocator_type(),
+		):
+		_limit(0), _size(0), _alloc(alloc){
+			_vec = _alloc.allocate(0);
+			insert(begin(), first, last);
+		}
 
-		~VectorClass(){
+		~vector(){
 			this->_alloc.deallocate(this->_vec, this->capacity());
 		}
 
-		VectorClass(const VectorClass<T>& other) :
+		vector(const vector<T>& other) :
 			_limit(other._limit),
 			_size(other._size),
 			_alloc(other._alloc){
@@ -65,19 +64,31 @@ template < typename T, typename Alloc = std::allocator<T> > class VectorClass{
 				_alloc.construct(&this->_vec[i], other._vec[i]);
 		}
 
-		VectorClass& operator=(const VectorClass<T>& other){
+		vector& operator=(const vector<T>& other){
 			this->_size = other._size;
 			this->_limit = other._limit;
 			this->_alloc = other._alloc;
 			this->_vec = _alloc.allocate(this->_size);
 			for (size_type i = 0; i < this->_size; i++)
 				_alloc.construct(&this->_vec[i], other._vec[i]);
-
 			return *this;
 		}
 
-		void assign( size_type count, const T& value );
-		template< typename InputIt > void assign( InputIt first, InputIt last );
+		void assign( size_type count, const T& value ){
+			reserve(count);
+			this->_size = count;
+			for (size_type i = 0; i < this->_size; i++)
+				_alloc.construct(&this->_vec[i], value);
+		}
+
+		template< typename InputIt > void assign( InputIt first, InputIt last,
+		typename ft::enable_if<!ft::is_integral<InputIt>::value, T>::type* =0){
+			size_type diff = last - first;
+			reserve(diff);
+			this->_size = diff;
+			for (size_type i = 0; first != last; i++)
+				_alloc.construct(this->_vec + i, *first);
+		}
 
 		allocator_type get_allocator() const {
 			 return this->_alloc;
@@ -132,16 +143,15 @@ template < typename T, typename Alloc = std::allocator<T> > class VectorClass{
 		}
 
 		void reserve( size_type new_cap ){
-			if (new_cap <= this->_limit)
-				return ;
-			else if (new_cap > max_size())
+			if (new_cap > _alloc.max_size())
 				throw (std::length_error("vector::reserve"));
-			this->_limit = new_cap;
-			VectorClass<value_type> tmp(*this);
-			for (size_type i = 0; i < this->_size; i++){
-				tmp._alloc.construct(tmp._vec + i, this->_vec[i]);
+			if(new_cap > this->_limit){
+				this->_limit = new_cap;
+				vector<value_type> tmp(*this);
+				for (size_type i = 0; i < this->_size; i++)
+					tmp._alloc.construct(tmp._vec + i, this->_vec[i]);
+				swap(tmp);
 			}
-			swap(tmp);
 		}
 
 		size_t capacity( void ) const {
@@ -153,17 +163,74 @@ template < typename T, typename Alloc = std::allocator<T> > class VectorClass{
 				pop_back();
 		}
 
-		// iterator insert( iterator pos, const T& value );
-		// void insert( iterator pos, size_type count, const T& value );
-		// template< typename InputIt >
-		// void insert( iterator pos, InputIt first, InputIt last );
-		// iterator erase( iterator pos );
-		// iterator erase( iterator first, iterator last );
+		iterator insert( iterator pos, const T& value ){
+			size_type it = pos - begin();
+			insert(pos, 1, value);
+			return(iterator(this->_vec + it));
+		}
+
+		void insert( iterator pos, size_type count, const T& value ){
+			size_type it = pos - begin();
+
+			if(count + this->size() > this->capacity())
+				reserve(size() + count);
+
+			
+			for(size_type i = 0; i < count; i++)
+				this->_alloc.construct(this->_vec + this->_size + i, value);
+
+			for(int i = this->_size - 1; i >= 0 && i >= (int)it; i--)
+				this->_vec[i + count] = this->_vec[i];
+			
+			for(size_type i = it; i < it + count; i++)
+				this->_vec[i] = value;
+			this->_size += count;
+		}
+
+		template< typename InputIt >
+		void insert( iterator pos, InputIt first, InputIt last, typename ft::enable_if<!ft::is_integral<InputIt>::value, T>::type* =0){
+			size_type it = pos - begin();
+			size_type count = last - first;
+
+
+			if(count + this->size() > this->capacity())
+				reserve(size() + count);
+
+			for(size_type i = 0; i < count; i++)
+				this->_alloc.construct(this->_vec + this->_size + i, *first);
+
+			for(int i = this->_size - 1; i >= 0 && i >= (int)it; i--)
+				this->_vec[i + count] = this->_vec[i];
+			
+			for(size_type i = it; i < it + count; i++)
+				this->_vec[i] = *first;
+			this->_size += count;
+		}
+
+		iterator erase( iterator pos ){
+			size_type i = pos - begin();
+
+			for (; i < this->_size - 1; i++)
+				this->_vec[i] = this->_vec[i+1];
+			this->_size--;
+			this->_alloc.destroy(this->_vec + this->_size);
+
+			return pos;
+		}
+
+		iterator erase( iterator first, iterator last ){
+			size_type i = last - first;
+
+			for(; i > 0; i--)
+				erase(first);
+
+			return first;
+		}
 		
 		void push_back( const value_type& value){
 			if (this->_size==0 && this->_limit==0)
 				reserve(1);
-			else
+			else if(this->_size == this->_limit)
 				reserve(this->_limit * 2);
 			this->_alloc.construct(this->_vec + this->_size, value);
 			this->_size++;
@@ -187,7 +254,7 @@ template < typename T, typename Alloc = std::allocator<T> > class VectorClass{
 			}
 		}
 
-		void swap( VectorClass& other ){
+		void swap( vector& other ){
 			value_type	size = this->_size;
 			value_type	limit = this->_limit;
 			pointer	vec = this->_vec;

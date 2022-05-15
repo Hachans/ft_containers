@@ -51,6 +51,22 @@ template < typename T > class VecIter : public ft::iterator<std::random_access_i
 			return *this;
 		}
 
+		difference_type operator-(const VecIter& rhs) const {
+			return _p - rhs._p;
+		}
+
+		// difference_type operator+(const VecIter& rhs) const { 
+		// 	return _p + rhs._p;     How the fuck to make this work
+		// }
+
+		VecIter operator-(difference_type rhs) const {
+			return VecIter(_p-rhs);
+		}
+
+		VecIter operator+(difference_type rhs) const {
+			return VecIter(_p+rhs);
+		}
+
 		bool operator!=( const VecIter<value_type>& other ){
 			return(_p != other._p);
 		}
