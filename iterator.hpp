@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <memory>
+#include <cstddef>
 
 namespace ft{
 
@@ -86,7 +87,7 @@ class reverse_iterator : iterator<
 		}
 
 		pointer operator->() const {
-			return std::addressof(operator*());
+			return addressof(operator*());
 		}
 
 		reverse_iterator& operator++() {

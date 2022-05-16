@@ -21,7 +21,7 @@ template < typename T > class VecIter : public ft::iterator<std::random_access_i
 
 	public:
 
-		VecIter(): _p(nullptr){}
+		VecIter(): _p(0){}
 		VecIter(pointer n): _p(n){}
 		~VecIter(){}
 
@@ -60,11 +60,11 @@ template < typename T > class VecIter : public ft::iterator<std::random_access_i
 		// }
 
 		VecIter operator-(difference_type rhs) const {
-			return VecIter(_p-rhs);
+			return VecIter(_p - rhs);
 		}
 
 		VecIter operator+(difference_type rhs) const {
-			return VecIter(_p+rhs);
+			return VecIter(_p + rhs);
 		}
 
 		bool operator!=( const VecIter<value_type>& other ){
