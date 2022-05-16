@@ -53,9 +53,9 @@ struct enable_if<true, T> { typedef T type; };
 
 template<class T, T v>
 struct integral_constant {
-    const static T value = v;
-    typedef T 					value_type;
-	typedef integral_constant 	type ;
+    const static	T 					value = v;
+    typedef 		T 					value_type;
+	typedef 		integral_constant 	type ;
 };
 
 typedef integral_constant<bool, true>  true_type;

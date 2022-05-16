@@ -3,6 +3,7 @@
 
 #include "VectorIter.hpp"
 #include "Utils.hpp"
+#include <vector>
 
 
 namespace ft{
@@ -40,20 +41,22 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 			_limit(count), _size(0), _alloc(alloc){
 
 			_vec = _alloc.allocate(count);
-			for (size_type i = 0; i < count; i++)
+			for (size_type i = 0; i < count; i++){
 				_alloc.construct(&_vec[i], value);
+				this->_size = i + 1;
+			}
 		}
 
 		template< class InputIt >
 		vector( InputIt first, InputIt last, const allocator_type& alloc = allocator_type(),
-			typename ft::enable_if<!ft::is_integral< InputIt >::value, InputIt>::type=0):
+			typename ft::enable_if<!ft::is_integral<InputIt>::value>::type* = 0):
 		_limit(0), _size(0), _alloc(alloc){
 			_vec = _alloc.allocate(0);
 			insert(begin(), first, last);
 		}
 
 		~vector(){
-			this->_alloc.deallocate(this->_vec, this->capacity());
+			// this->_alloc.deallocate(this->_vec, this->capacity());
 		}
 
 		vector(const vector<T>& other) :
@@ -83,12 +86,15 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 		}
 
 		template< typename InputIt > void assign( InputIt first, InputIt last,
-		typename ft::enable_if<!ft::is_integral< InputIt >::value, InputIt>::type=0){
+		typename ft::enable_if<!ft::is_integral< InputIt >::value >::type* =0){
 			size_type diff = last - first;
+			size_type i = 0;
 			reserve(diff);
 			this->_size = diff;
-			for (size_type i = 0; first != last; i++)
+			for (; first != last; first++){
 				_alloc.construct(this->_vec + i, *first);
+				i++;
+			}
 		}
 
 		allocator_type get_allocator() const {
@@ -190,21 +196,10 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 
 		template< typename InputIt >
 		void insert( iterator pos, InputIt first, InputIt last,
-		typename ft::enable_if<!ft::is_integral< InputIt >::value, InputIt>::type=0){
+		typename ft::enable_if<!ft::is_integral<InputIt>::value>::type* = 0){
 			size_type it = pos - begin();
-			InputIt tmp = first;
-			size_type count = 0;
-			std::cout << std::distance(first, last) << std::endl;
-			while(tmp != last){
-				(void)tmp++;
-				count++;
-			}
+			size_type count = last - first;
 
-			count = abs(count);
-			
-			// size_type count = last - first;
-
-			std::cout << count << std::endl;
 			if(count + this->size() > this->capacity())
 				reserve(size() + count);
 

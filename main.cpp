@@ -97,14 +97,12 @@ int main(int argc, char** argv) {
 	ft::vector<int> v6;
 	v6.assign(7, 100);
 	print_vector(v6, 6);
-
+	
 	ft::vector<int>::iterator v6_it1 = v5.begin() + 3;
 	ft::vector<int>::iterator v6_it2 = v5.end() - 7;
-
 	v6.assign(v6_it1, v6_it2);
 	v6.assign(v5.begin() + 3, v5.end() - 7);
 	print_vector(v6, 6);
-
 	ft::vector<int>::allocator_type Allocator = v6.get_allocator();
 	ft::vector<int> v66(Allocator);
 

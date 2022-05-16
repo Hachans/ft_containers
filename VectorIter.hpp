@@ -51,8 +51,16 @@ template < typename T > class VecIter : public ft::iterator<std::random_access_i
 			return *this;
 		}
 
-		difference_type operator-(const VecIter& rhs) const {
+		difference_type operator-(const VecIter<value_type>& rhs) const {
 			return _p - rhs._p;
+		}
+
+		friend	VecIter operator-(const size_t n, const VecIter right)
+		{
+			VecIter	tmp(right);
+
+			tmp._p = right._p - n;
+			return (tmp);
 		}
 
 		// difference_type operator+(const VecIter& rhs) const { 
