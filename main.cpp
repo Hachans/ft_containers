@@ -180,28 +180,28 @@ int main(int argc, char** argv) {
 	it2 = v1.begin() + 3;
 	it3 = v1.end() - 1;
 
-	// std::cout << "it1 = v1.begin()" << std::endl;
-	// std::cout << "it2 = v1.begin() + 3" << std::endl;
-	// std::cout << "it3 = v1.end() - 2;" << std::endl;
-	// std::cout << std::endl;
+	std::cout << "it1 = v1.begin()" << std::endl;
+	std::cout << "it2 = v1.begin() + 3" << std::endl;
+	std::cout << "it3 = v1.end() - 2;" << std::endl;
+	std::cout << std::endl;
 
-	// std::cout << "*(it1): " << *(it1) << std::endl;
-	// std::cout << "(it2 - it1): " << (it2 - it1) << std::endl;
+	std::cout << "*(it1): " << *(it1) << std::endl;
+	std::cout << "(it2 - it1): " << (it2 - it1) << std::endl;
 
 
-	// std::cout << "*(it1 + 1): " << *(it1 + 1) << std::endl;
+	std::cout << "*(it1 + 1): " << *(it1 + 1) << std::endl;
 	// std::cout << "*(1 + it1): " << *(1 + it1) << std::endl;
-	// std::cout << "*(it2 - 1): " << *(it2 - 1) << std::endl;
+	std::cout << "*(it2 - 1): " << *(it2 - 1) << std::endl;
 	// std::cout << "*(-1 + it2): " << *(-1 + it2) << std::endl;
 
-	// std::cout << "*(it1++): " << *(it1++) << " -> " << *it1 << std::endl;
-	// std::cout << "*(it2++): " << *(it2++) << " -> " << *it2 << std::endl;
-	// std::cout << "*(++it1): " << *(++it1) << " -> " << *it1 << std::endl;
-	// std::cout << "*(++it2): " << *(++it2) << " -> " << *it2 << std::endl;
-	// std::cout << "*(it1--): " << *(it1--) << " -> " << *it1 << std::endl;
-	// std::cout << "*(it2--): " << *(it2--) << " -> " << *it2 << std::endl;
-	// std::cout << "*(--it1): " << *(--it1) << " -> " << *it1 << std::endl;
-	// std::cout << "*(--it2): " << *(--it2) << " -> " << *it2 << std::endl;
+	std::cout << "*(it1++): " << *(it1++) << " -> " << *it1 << std::endl;
+	std::cout << "*(it2++): " << *(it2++) << " -> " << *it2 << std::endl;
+	std::cout << "*(++it1): " << *(++it1) << " -> " << *it1 << std::endl;
+	std::cout << "*(++it2): " << *(++it2) << " -> " << *it2 << std::endl;
+	std::cout << "*(it1--): " << *(it1--) << " -> " << *it1 << std::endl;
+	std::cout << "*(it2--): " << *(it2--) << " -> " << *it2 << std::endl;
+	std::cout << "*(--it1): " << *(--it1) << " -> " << *it1 << std::endl;
+	std::cout << "*(--it2): " << *(--it2) << " -> " << *it2 << std::endl;
 
 	// std::cout << "*(it1 += 3): " << *it1 << " -> " << *(it1 += 3) << std::endl;
 	// std::cout << "*(it2 += 3): " << *it2 << " -> " << *(it2 += 3) << std::endl;
@@ -221,14 +221,14 @@ int main(int argc, char** argv) {
 	// std::cout << "*(it4 - 3): " << *(it4 - 3) << std::endl;
 	// std::cout << "it4 - it5: " << it4 - it5 << std::endl;
 
-	// it1 = v1.begin();
-	// it2 = v1.begin() + 3;
+	it1 = v1.begin();
+	it2 = v1.begin() + 3;
 
-	// ft::vector<int>::const_iterator cit1 = it1;
-	// ft::vector<int>::const_iterator cit2 = it2;
+	ft::vector<int>::const_iterator cit1 = it1;
+	ft::vector<int>::const_iterator cit2 = it2;
 
-	// std::cout << "*cit1: " << *cit1 << std::endl;
-	// std::cout << "*cit2: " << *cit2 << std::endl;
+	std::cout << "*cit1: " << *cit1 << std::endl;
+	std::cout << "*cit2: " << *cit2 << std::endl;
 
 	// nope!
 	//cit2 = 67;
