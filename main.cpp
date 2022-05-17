@@ -67,7 +67,9 @@ int main(int argc, char** argv) {
 	print_vector(v2, 2);
 
 	ft::vector<int>::iterator it_tmp1 = v2.begin() + 1;
+	ft::vector<int>::const_iterator c_it_tmp = v2.end() - 2;
 	ft::vector<int>::iterator it_tmp2 = v2.end() - 2;
+
 	ft::vector<int> v3(it_tmp1, it_tmp2);
 	print_vector(v3, 3);
 
@@ -76,6 +78,9 @@ int main(int argc, char** argv) {
 
 	ft::vector<int> v5 = v4;
 	print_vector(v5, 5);
+
+	std::cout << "it_tmp1 > c_it_tmp: " << std::boolalpha << (it_tmp1 > c_it_tmp) << std::endl;
+	std::cout << "it_tmp1 < c_it_tmp: " << std::boolalpha << (it_tmp1 < c_it_tmp) << std::endl;
 
 	std::cout << "v1 is empty: "<< v1.empty() << std::endl;
 	std::cout << "v5 is empty: "<< v5.empty() << std::endl;

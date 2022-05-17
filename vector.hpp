@@ -296,36 +296,36 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 };
 	//!! add const back 
 	template< typename T, typename Alloc >
-	bool operator==(  vector<T,Alloc>& lhs,  vector<T,Alloc>& rhs ){
+	bool operator==( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ){
 		if (lhs.size() != rhs.size())
 			return false;
-		return equal(lhs.begin(), lhs.end(), rhs.begin());
+		return equal(lhs.cbegin(), lhs.cend(), rhs.cbegin());
 	}
 
 	template< typename T, typename Alloc >
-	bool operator!=(  vector<T,Alloc>& lhs,  vector<T,Alloc>& rhs ){
+	bool operator!=( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ){
 		return !(lhs == rhs);
 	}
 
 	template< typename T, typename Alloc >
-	bool operator<=( vector<T,Alloc>& lhs, vector<T,Alloc>& rhs ){
-		if (equal(lhs.begin(), lhs.end(), rhs.begin()))
+	bool operator<=( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ){
+		if (equal(lhs.cbegin(), lhs.cend(), rhs.cbegin()))
 			return true;
-		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+		return ft::lexicographical_compare(lhs.cbegin(), lhs.cend(), rhs.cbegin(), rhs.cend());
 	}
 
 	template< typename T, typename Alloc >
-	bool operator>=( vector<T,Alloc>& lhs, vector<T,Alloc>& rhs ){
+	bool operator>=( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ){
 		return rhs <= lhs;
 	}
 
 	template< typename T, typename Alloc >
-	bool operator<(  vector<T,Alloc>& lhs,  vector<T,Alloc>& rhs ){
-		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	bool operator<( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ){
+		return ft::lexicographical_compare(lhs.cbegin(), lhs.cend(), rhs.cbegin(), rhs.cend());
 	}
 
 	template< typename T, typename Alloc >
-	bool operator>(  vector<T,Alloc>& lhs,  vector<T,Alloc>& rhs ){
+	bool operator>( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ){
 		return !(lhs <= rhs);
 	}
 
