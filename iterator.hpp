@@ -121,6 +121,14 @@ class reverse_iterator : iterator<
 			return *this;
 		}
 
+		reverse_iterator operator+( difference_type n ) const{
+			return reverse_iterator(base() - n);
+		}
+
+		reverse_iterator operator-( difference_type n ) const{
+			return reverse_iterator(base() + n);
+		}
+
 		reference operator[](difference_type n) const {
 			return base()[-n-1];
 		}

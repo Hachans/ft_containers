@@ -43,7 +43,7 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 			_vec = _alloc.allocate(count);
 			for (size_type i = 0; i < count; i++){
 				_alloc.construct(&_vec[i], value);
-				this->_size = i + 1;
+				_size = i + 1;
 			}
 		}
 
@@ -56,33 +56,33 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 		}
 
 		~vector(){
-			// this->_alloc.deallocate(this->_vec, this->capacity());
+			_alloc.deallocate(_vec, capacity());
 		}
 
 		vector(const vector<T>& other) :
 			_limit(other._limit),
 			_size(other._size),
 			_alloc(other._alloc){
-			this->_vec = _alloc.allocate(this->_size);
-			for (size_type i = 0; i < this->_size; i++)
-				_alloc.construct(&this->_vec[i], other._vec[i]);
+			_vec = _alloc.allocate(_limit);
+			for (size_type i = 0; i < _size; i++)
+				_alloc.construct(&_vec[i], other._vec[i]);
 		}
 
 		vector& operator=(const vector<T>& other){
-			this->_size = other._size;
-			this->_limit = other._limit;
-			this->_alloc = other._alloc;
-			this->_vec = _alloc.allocate(this->_size);
-			for (size_type i = 0; i < this->_size; i++)
-				_alloc.construct(&this->_vec[i], other._vec[i]);
+			_size = other._size;
+			_limit = other._limit;
+			_alloc = other._alloc;
+			_vec = _alloc.allocate(_size);
+			for (size_type i = 0; i < _size; i++)
+				_alloc.construct(&_vec[i], other._vec[i]);
 			return *this;
 		}
 
 		void assign( size_type count, const T& value ){
 			reserve(count);
-			this->_size = count;
-			for (size_type i = 0; i < this->_size; i++)
-				_alloc.construct(&this->_vec[i], value);
+			_size = count;
+			for (size_type i = 0; i < _size; i++)
+				_alloc.construct(&_vec[i], value);
 		}
 
 		template< typename InputIt > void assign( InputIt first, InputIt last,
@@ -90,9 +90,9 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 			size_type diff = last - first;
 			size_type i = 0;
 			reserve(diff);
-			this->_size = diff;
+			_size = diff;
 			for (; first != last; first++){
-				_alloc.construct(this->_vec + i, *first);
+				_alloc.construct(&_vec[i], *first);
 				i++;
 			}
 		}
@@ -152,11 +152,11 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 		void reserve( size_type new_cap ){
 			if (new_cap > _alloc.max_size())
 				throw (std::length_error("vector::reserve"));
-			if(new_cap > this->_limit){
-				this->_limit = new_cap;
+			if(new_cap > _limit){
+				_limit = new_cap;
 				vector<value_type> tmp(*this);
-				for (size_type i = 0; i < this->_size; i++)
-					tmp._alloc.construct(tmp._vec + i, this->_vec[i]);
+				for (size_type i = 0; i < _size; i++)
+					tmp._alloc.construct(&tmp._vec[i], _vec[i]);
 				swap(tmp);
 			}
 		}
@@ -173,25 +173,24 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 		iterator insert( iterator pos, const T& value ){
 			size_type it = pos - begin();
 			insert(pos, 1, value);
-			return(iterator(this->_vec + it));
+			return(iterator(_vec + it));
 		}
 
 		void insert( iterator pos, size_type count, const T& value ){
 			size_type it = pos - begin();
 
-			if(count + this->size() > this->capacity())
+			if(count + size() > capacity())
 				reserve(size() + count);
 
-			
 			for(size_type i = 0; i < count; i++)
-				this->_alloc.construct(this->_vec + this->_size + i, value);
+				_alloc.construct(_vec + _size + i, value);
 
-			for(int i = this->_size - 1; i >= 0 && i >= (int)it; i--)
-				this->_vec[i + count] = this->_vec[i];
+			for(int i = _size - 1; i >= 0 && i >= (int)it; i--)
+				_vec[i + count] = _vec[i];
 			
 			for(size_type i = it; i < it + count; i++)
-				this->_vec[i] = value;
-			this->_size += count;
+				_vec[i] = value;
+			_size += count;
 		}
 
 		template< typename InputIt >
@@ -200,27 +199,27 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 			size_type it = pos - begin();
 			size_type count = last - first;
 
-			if(count + this->size() > this->capacity())
+			if(count + size() > capacity())
 				reserve(size() + count);
 
 			for(size_type i = 0; i < count; i++)
-				this->_alloc.construct(this->_vec + this->_size + i, *first);
+				_alloc.construct(_vec + _size + i, *first);
 
-			for(int i = this->_size - 1; i >= 0 && i >= (int)it; i--)
-				this->_vec[i + count] = this->_vec[i];
+			for(int i = _size - 1; i >= 0 && i >= (int)it; i--)
+				_vec[i + count] = _vec[i];
 			
 			for(size_type i = it; i < it + count; i++)
-				this->_vec[i] = *first;
-			this->_size += count;
+				_vec[i] = *first;
+			_size += count;
 		}
 
 		iterator erase( iterator pos ){
 			size_type i = pos - begin();
 
-			for (; i < this->_size - 1; i++)
-				this->_vec[i] = this->_vec[i+1];
-			this->_size--;
-			this->_alloc.destroy(this->_vec + this->_size);
+			for (; i < _size - 1; i++)
+				_vec[i] = _vec[i+1];
+			_size--;
+			_alloc.destroy(_vec + _size);
 
 			return pos;
 		}
@@ -235,40 +234,40 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 		}
 		
 		void push_back( const value_type& value){
-			if (this->_size==0 && this->_limit==0)
+			if (_size==0 && _limit==0)
 				reserve(1);
-			else if(this->_size == this->_limit)
-				reserve(this->_limit * 2);
-			this->_alloc.construct(this->_vec + this->_size, value);
-			this->_size++;
+			else if(_size == _limit)
+				reserve(_limit * 2);
+			_alloc.construct(_vec + _size, value);
+			_size++;
 		}
 
 		void pop_back(){
-			if (this->_size){
-				this->_alloc.destroy(this->_vec + this->_size - 1);
-				this->_size--;
+			if (_size){
+				_alloc.destroy(_vec + _size - 1);
+				_size--;
 			}
 		}
 
 		void resize( size_type count, value_type value = value_type()){
-			if (this->_size > count)
-				for (size_type i = this->_size; i > count; i--)
+			if (_size > count)
+				for (size_type i = _size; i > count; i--)
 					pop_back();
 			else{
 				reserve(count);
-				for (size_type i = this->_size; i < count; i++)
+				for (size_type i = _size; i < count; i++)
 					push_back(value);
 			}
 		}
 
 		void swap( vector& other ){
-			value_type	size = this->_size;
-			value_type	limit = this->_limit;
-			pointer	vec = this->_vec;
+			value_type	size = _size;
+			value_type	limit = _limit;
+			pointer	vec = _vec;
 
-			this->_size = other._size;
-			this->_limit = other._limit;
-			this->_vec = other._vec;
+			_size = other._size;
+			_limit = other._limit;
+			_vec = other._vec;
 
 			other._size = size;
 			other._limit = limit;
@@ -276,25 +275,64 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 		}
 
 		reference at( size_type pos ){
-			if (pos > this->_size - 1)
+			if (pos > _size - 1)
 				throw std::out_of_range("Index out of range");
-			return (this->_vec[pos]);
+			return (_vec[pos]);
 		}
 
 		const_reference at( size_type pos ) const{
-			if (pos > this->_size - 1)
+			if (pos > _size - 1)
 				throw std::out_of_range("Index out of range");
-			return (this->_vec[pos]);
+			return (_vec[pos]);
 		}
 
 		reference operator[]( size_type pos ){
-			return *(this->_vec + pos);
+			return *(_vec + pos);
 		}
 
 		const_reference operator[]( size_type pos ) const{
-			return *(this->_vec + pos);
+			return *(_vec + pos);
 		}
 };
+	//!! add const back 
+	template< typename T, typename Alloc >
+	bool operator==(  vector<T,Alloc>& lhs,  vector<T,Alloc>& rhs ){
+		if (lhs.size() != rhs.size())
+			return false;
+		return equal(lhs.begin(), lhs.end(), rhs.begin());
+	}
+
+	template< typename T, typename Alloc >
+	bool operator!=(  vector<T,Alloc>& lhs,  vector<T,Alloc>& rhs ){
+		return !(lhs == rhs);
+	}
+
+	template< typename T, typename Alloc >
+	bool operator<=( vector<T,Alloc>& lhs, vector<T,Alloc>& rhs ){
+		if (equal(lhs.begin(), lhs.end(), rhs.begin()))
+			return true;
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
+
+	template< typename T, typename Alloc >
+	bool operator>=( vector<T,Alloc>& lhs, vector<T,Alloc>& rhs ){
+		return rhs <= lhs;
+	}
+
+	template< typename T, typename Alloc >
+	bool operator<(  vector<T,Alloc>& lhs,  vector<T,Alloc>& rhs ){
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+	}
+
+	template< typename T, typename Alloc >
+	bool operator>(  vector<T,Alloc>& lhs,  vector<T,Alloc>& rhs ){
+		return !(lhs <= rhs);
+	}
+
+	//https://www.cplusplus.com/reference/vector/vector/swap-free/
+	template <class T, class Alloc> void swap (vector<T,Alloc>& x, vector<T,Alloc>& y){
+		x.swap(y);
+	}
 } //namespace end
 
 #endif

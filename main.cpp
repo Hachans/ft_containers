@@ -50,7 +50,7 @@ int main(int argc, char** argv) {
 		std::cerr << "Count value:" << COUNT << std::endl;
 		return 1;
 	}
-	time_t	start;
+	time_t	start, end;
 	time(&start);
 	const int seed = atoi(argv[1]);
 	srand(seed);
@@ -90,13 +90,13 @@ int main(int argc, char** argv) {
 	print_vector(v5, 5);
 	std::cout << v5[v5.size() - 1] << std::endl;
 	std::cout << v5.at(v5.size() - 1) << std::endl;
-
+	
 	std::cout << v5.front() << std::endl;
 	std::cout << v5.back() << std::endl;
 
 	ft::vector<int> v6;
 	v6.assign(7, 100);
-	print_vector(v6, 6);
+	print_vector(v5, 5);
 	
 	ft::vector<int>::iterator v6_it1 = v5.begin() + 3;
 	ft::vector<int>::iterator v6_it2 = v5.end() - 7;
@@ -190,9 +190,9 @@ int main(int argc, char** argv) {
 
 
 	std::cout << "*(it1 + 1): " << *(it1 + 1) << std::endl;
-	// std::cout << "*(1 + it1): " << *(1 + it1) << std::endl;
+	std::cout << "*(1 + it1): " << *(1 + it1) << std::endl;
 	std::cout << "*(it2 - 1): " << *(it2 - 1) << std::endl;
-	// std::cout << "*(-1 + it2): " << *(-1 + it2) << std::endl;
+	std::cout << "*(-1 + it2): " << *(-1 + it2) << std::endl;
 
 	std::cout << "*(it1++): " << *(it1++) << " -> " << *it1 << std::endl;
 	std::cout << "*(it2++): " << *(it2++) << " -> " << *it2 << std::endl;
@@ -203,23 +203,23 @@ int main(int argc, char** argv) {
 	std::cout << "*(--it1): " << *(--it1) << " -> " << *it1 << std::endl;
 	std::cout << "*(--it2): " << *(--it2) << " -> " << *it2 << std::endl;
 
-	// std::cout << "*(it1 += 3): " << *it1 << " -> " << *(it1 += 3) << std::endl;
-	// std::cout << "*(it2 += 3): " << *it2 << " -> " << *(it2 += 3) << std::endl;
-	// std::cout << "*(it1 -= 1): " << *it1 << " -> " << *(it1 -= 1) << std::endl;
-	// std::cout << "*(it2 -= 1): " << *it2 << " -> " << *(it2 -= 1) << std::endl;
+	std::cout << "*(it1 += 3): " << *it1 << " -> " << *(it1 += 3) << std::endl;
+	std::cout << "*(it2 += 3): " << *it2 << " -> " << *(it2 += 3) << std::endl;
+	std::cout << "*(it1 -= 1): " << *it1 << " -> " << *(it1 -= 1) << std::endl;
+	std::cout << "*(it2 -= 1): " << *it2 << " -> " << *(it2 -= 1) << std::endl;
 
-	// ft::reverse_iterator<ft::vector<int>::iterator> it4( v1.rbegin() + 6 );
-	// ft::reverse_iterator<ft::vector<int>::iterator> it5( v1.rbegin() );
-	// std::cout << "*(it4): " << *(it4) << std::endl;
+	ft::reverse_iterator<ft::vector<int>::iterator> it4( v1.rbegin() + 6 );
+	ft::reverse_iterator<ft::vector<int>::iterator> it5( v1.rbegin() );
+	std::cout << "*(it4): " << *(it4) << std::endl;
 
-	// std::cout << "*(it4++): " << *(it4++) << " -> " << *it4 << std::endl;
-	// std::cout << "*(++it4): " << *(++it4) << " -> " << *it4 << std::endl;
-	// std::cout << "*(it4--): " << *(it4--) << " -> " << *it4 << std::endl;
-	// std::cout << "*(--it4): " << *(--it4) << " -> " << *it4 << std::endl;
+	std::cout << "*(it4++): " << *(it4++) << " -> " << *it4 << std::endl;
+	std::cout << "*(++it4): " << *(++it4) << " -> " << *it4 << std::endl;
+	std::cout << "*(it4--): " << *(it4--) << " -> " << *it4 << std::endl;
+	std::cout << "*(--it4): " << *(--it4) << " -> " << *it4 << std::endl;
 
-	// std::cout << "*(it4 + 3): " << *(it4 + 3) << std::endl;
-	// std::cout << "*(it4 - 3): " << *(it4 - 3) << std::endl;
-	// std::cout << "it4 - it5: " << it4 - it5 << std::endl;
+	std::cout << "*(it4 + 3): " << *(it4 + 3) << std::endl;
+	std::cout << "*(it4 - 3): " << *(it4 - 3) << std::endl;
+	std::cout << "it4 - it5: " << it4 - it5 << std::endl;
 
 	it1 = v1.begin();
 	it2 = v1.begin() + 3;
@@ -239,17 +239,23 @@ int main(int argc, char** argv) {
 	print_vector(v1, 1);
 	print_vector(v2, 2);
 
-	// std::cout << std::boolalpha << (v1 == v2) << std::endl;
-	// std::cout << std::boolalpha << (v1 != v2) << std::endl;
-	// std::cout << std::boolalpha << (v1 < v2) << std::endl;
-	// std::cout << std::boolalpha << (v1 > v2) << std::endl;
-	// std::cout << std::boolalpha << (v1 >= v2) << std::endl;
-	// std::cout << std::boolalpha << (v1 <= v2) << std::endl;
+	std::cout << std::boolalpha << (v1 == v2) << std::endl;
+	std::cout << std::boolalpha << (v1 != v2) << std::endl;
+	std::cout << std::boolalpha << (v1 < v2) << std::endl;
+	std::cout << std::boolalpha << (v1 > v2) << std::endl;
+	std::cout << std::boolalpha << (v1 >= v2) << std::endl;
+	std::cout << std::boolalpha << (v1 <= v2) << std::endl;
 
 	v1.swap(v2);
 
 	print_vector(v1, 1);
 	print_vector(v2, 2);
+
+	time(&end);
+	double diff = difftime(end, start);
+	int	tme = static_cast<int> (diff);
+	std::cout << "Executed in " << tme << " seconds" << std::endl;
+	return 0;
 
 
 
