@@ -90,7 +90,7 @@ bool operator<( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ){
 
 template< class T1, class T2 >
 bool operator>( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ){
-	return !(rhs < lhs)
+	return !(rhs < lhs);
 }
 
 template< class T1, class T2 >

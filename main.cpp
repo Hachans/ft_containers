@@ -15,6 +15,7 @@
 
 #else
 	#include "vector.hpp"
+	#include "stack.hpp"
 
 #endif
 
@@ -25,6 +26,18 @@ void	print_vector(ft::vector<T>& v, size_t id = 0, const std::string& delimiter 
 	for (typename ft::vector<T>::iterator it1 = v.begin(); it1 != v.end(); it1++)
 		std::cout << *it1 << delimiter;
 	std::cout << "]" << std::endl;
+}
+
+template<typename T>
+void	print_stack(ft::stack<T> s, size_t id = 0, const std::string& delimiter = "\n")
+{
+	size_t n_elems = s.size();
+	std::cout << "stack" << id << ":\n";
+	for (; !s.empty(); --n_elems)
+	{
+		std::cout << "[ " << s.top() << " ]" << delimiter;
+		s.pop();
+	}
 }
 
 
@@ -42,6 +55,25 @@ struct Buffer
 
 #define COUNT (MAX_RAM / (int)sizeof(Buffer))
 
+template<typename T>
+class MutantStack : public ft::stack<T>
+{
+public:
+	MutantStack() {}
+	MutantStack(const MutantStack<T>& src) { *this = src; }
+	MutantStack<T>& operator=(const MutantStack<T>& rhs) 
+	{
+		this->c = rhs.c;
+		return *this;
+	}
+	~MutantStack() {}
+
+	typedef typename ft::stack<T>::container_type::iterator iterator;
+
+	iterator begin() { return this->c.begin(); }
+	iterator end() { return this->c.end(); }
+};
+
 int main(int argc, char** argv) {
 	if (argc != 2)
 	{
@@ -58,6 +90,14 @@ int main(int argc, char** argv) {
 	ft::vector<std::string> vector_str;
 	ft::vector<int> vector_int;
 
+	MutantStack<char> iterable_stack;
+	for (char letter = 'a'; letter <= 'z'; letter++)
+		iterable_stack.push(letter);
+	for (MutantStack<char>::iterator it = iterable_stack.begin(); it != iterable_stack.end(); it++)
+	{
+		std::cout << *it;
+	}
+	std::cout << std::endl;
 
 	/* vector */
 	ft::vector<int> v1;
@@ -255,6 +295,46 @@ int main(int argc, char** argv) {
 
 	print_vector(v1, 1);
 	print_vector(v2, 2);
+
+	std::cout << std::endl;
+	std::cout << std::endl;
+
+	// stack 
+	ft::stack<int> stack0;
+	stack0.push(1);
+	stack0.push(2);
+	stack0.push(3);
+	stack0.push(4);
+	print_stack(stack0, 0);
+
+	ft::stack<int> stack1 = stack0;
+	print_stack(stack1, 1);
+
+	ft::stack<int> stack2(stack1);
+	print_stack(stack2, 2);
+
+	stack1.pop();
+
+	stack2.pop();
+	stack2.pop();
+
+	std::cout << stack0.top() << std::endl;
+	std::cout << stack1.top() << std::endl;
+	std::cout << stack2.top() << std::endl;
+
+	stack2.pop();
+	stack2.pop();
+	std::cout << std::boolalpha << "Stack2 is empty: " << stack2.empty() << '\n';
+	std::cout << std::boolalpha << "Stack0 is empty: " << stack0.empty() << '\n';
+	std::cout << "Stack2 size: " << stack2.size() << '\n';
+	std::cout << "Stack0 size: " << stack0.size() << '\n';
+
+	std::cout << "1) " << std::boolalpha << (stack0 == stack1) << std::endl;
+	std::cout << "2) " << std::boolalpha << (stack0 != stack1) << std::endl;
+	std::cout << "3) " << std::boolalpha << (stack0 <  stack1) << std::endl;
+	std::cout << "4) " << std::boolalpha << (stack0 >  stack1) << std::endl;
+	std::cout << "5) " << std::boolalpha << (stack0 >= stack1) << std::endl;
+	std::cout << "6) " << std::boolalpha << (stack0 <= stack1) << std::endl;
 
 	time(&end);
 	double diff = difftime(end, start);

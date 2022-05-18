@@ -33,7 +33,7 @@ template < typename T > class VecIter : public ft::iterator<std::random_access_i
 			return _p;
 		}
 
-		VecIter operator++( value_type ){
+		VecIter operator++( int ){
 			return _p++;
 		}
 
@@ -42,7 +42,7 @@ template < typename T > class VecIter : public ft::iterator<std::random_access_i
 			return *this;
 		}
 		
-		VecIter operator--( value_type ){
+		VecIter operator--( int ){
 			return _p--;
 		}
 
