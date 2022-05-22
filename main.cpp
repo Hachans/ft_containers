@@ -372,6 +372,8 @@ int main(int argc, char** argv) {
 	std::cout << m1.empty() << std::endl;
 	std::cout << m1.size() << std::endl;
 
+	m1.insert(ft::pair<int, int>(1, 40));	
+
 	time(&end);
 	double diff = difftime(end, start);
 	int	tme = static_cast<int> (diff);

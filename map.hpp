@@ -31,48 +31,41 @@ template< class Key, class T, class Compare = std::less<Key>
 
 	private:
 
+		BST<value_type, key_compare>	_bst;
 		key_compare		_comp;
-		pointer			_map;
-		size_type		_limit;
-		size_type		_size;
 		allocator_type	_alloc;
 
 	public:
 
-
-
 		explicit map( const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type() ):
-			_comp(comp), _map(0), _limit(0), _size(0), _alloc(alloc){}
+			_bst(), _comp(comp), _alloc(alloc){}
 
 		// template< class InputIt >
 		// map( InputIt first, InputIt last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()):
-		// 	_comp(comp), _map(0), _limit(0), _size(0), _alloc(alloc){
+		// 	_comp(comp), _bst(0),_alloc(alloc){
 		// 	_map = _alloc.construct(0);
 		// 	insert()
 
 		// }
 
-		map( const map& other ): _limit(other.limit), _size(other._size), _alloc(other._alloc){
-			_map = _alloc.allocate(_limit);
-			for (size_type i = 0; i < _size; i++)
-				_alloc.construct(&_map[i], other._map[i]);
-		}
+		// map( const map& other ): _limit(other.limit), _size(other._size), _alloc(other._alloc){
+		// }
 
-		map& operator=( const map& other ){
-			this->_size = other._size;
-			this->_limit = other.limit;
-			this->_alloc = other._alloc;
-			_map = _alloc.allocate(_limit);
-			for (size_type i = 0; i < _size; i++)
-				_alloc.construct(&_map[i], other._map[i]);
-		}
+		// map& operator=( const map& other ){
+		// 	this->_size = other._size;
+		// 	this->_limit = other.limit;
+		// 	this->_alloc = other._alloc;
+		// 	_map = _alloc.allocate(_limit);
+		// 	for (size_type i = 0; i < _size; i++)
+		// 		_alloc.construct(&_map[i], other._map[i]);
+		// }
 
-		allocator_type get_allocator() const{
-			return this->_alloc;
-		}
+		// allocator_type get_allocator() const{
+		// 	return this->_alloc;
+		// }
 
-		value_type& at( const Key& key );
-		const value_type& at( const Key& key ) const;
+		// value_type& at( const Key& key );
+		// const value_type& at( const Key& key ) const;
 		// value_type& operator[]( const Key& key ){
 		// 	if !key
 		// 		insert key
@@ -92,11 +85,11 @@ template< class Key, class T, class Compare = std::less<Key>
 
 
 		bool empty() const {
-			return this->_size == 0;
+			return this->_bst.size() == 0;
 		}
 
 		size_type size() const{
-			return this->_size;
+			return this->_bst.size();
 		}
 
 		size_type max_size() const{
@@ -108,7 +101,9 @@ template< class Key, class T, class Compare = std::less<Key>
 		// 		erase();
 		// }
 
-		// std::pair<iterator, bool> insert( const value_type& value );
+		void insert( const value_type& key ){
+			_bst._insert(key);
+		}
 		// iterator insert( iterator hint, const value_type& value );
 		// template< class InputIt > void insert( InputIt first, InputIt last );
 		// void erase( iterator pos );
@@ -135,7 +130,9 @@ template< class Key, class T, class Compare, class Alloc >
 bool operator!=( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs );
 
 template< class Key, class T, class Compare, class Alloc >
-bool operator<( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs );
+bool operator<( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ){
+	return lhs < rhs; 
+}
 
 template< class Key, class T, class Compare, class Alloc >
 bool operator<=( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs );
