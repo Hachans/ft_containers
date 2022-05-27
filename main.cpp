@@ -416,6 +416,12 @@ int main(int argc, char** argv) {
 	std::cout << "m2 size: " << m2.size() << std::endl;
 	std::cout << "m2 map: "; m2.printMap();
 
+	typename ft::map<int, int>::iterator it = m2.begin();
+	typename ft::map<int, int>::iterator it2 = m2.end();
+	std:: cout << "begin of m2: " << it->first << std::endl;
+	std:: cout << "end of m2 " << it2->first << std::endl;
+	for(; it != it2; ++it)
+		std:: cout << "m2: " << it->first << std::endl;
 
 	// std::cout << m1.empty() << std::endl;
 	// std::cout << m1.size() << std::endl;
@@ -432,7 +438,7 @@ int main(int argc, char** argv) {
 
 	// m1[25] = 4;
 
-	// std::cout << m1.count(30) << std::endl;
+	// std::cout << m1.count(4) << std::endl;
 	// m1.printMap();
 	// m1.erase(30);
 	// m1.printMap();

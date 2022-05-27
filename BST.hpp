@@ -40,7 +40,6 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 		std::allocator<node> _node_alloc;
 
 	public:
-		typedef node* iter;
 		key_compare	_comp;
 
 		BST(): _bst(NULL), _size(0){}
@@ -97,7 +96,7 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 
 		}
 
-		bool _findNode(const key_type& key) const{
+		node* _findNode(const key_type& key) const{
 
 			node* res = _bst;
 
@@ -108,9 +107,7 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 				else
 					res = res->right;
 			}
-			if(res == NULL)
-				return false;
-			return true;
+			return res;
 		}
 
 		node* _insert(const value_type& value){
@@ -170,7 +167,7 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 			std::cout << "Max node: (" << max_node->data.first << ", " << max_node->data.second << ")\n";
 		}
 
-		node* minNode(node* bst){
+		node* minNode(node* bst) const{
 			node* current = bst;
 		
 			while (current && current->left != NULL)
@@ -178,7 +175,7 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 			return current;
 		}
 
-		node* maxNode(node* bst){
+		node* maxNode(node* bst) const{
 			node* current = bst;
 		
 			while (current && current->right != NULL)
@@ -223,6 +220,21 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 			return 1;
 		}
 
+		node*	begin(void) const{
+			node*	tmp = this->_bst;
+
+			while (tmp && tmp->left)
+				tmp = tmp->left;
+			return (tmp);
+		}
+		
+		node*	rbegin(void) const{
+			node*	tmp = this->_bst;
+
+			while (tmp && tmp->right)
+				tmp = tmp->right;
+			return (tmp);
+		}
 
 
 		~BST(){}

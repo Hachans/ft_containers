@@ -5,6 +5,7 @@
 #include "vector.hpp"
 #include "iterator.hpp"
 #include "BST.hpp"
+#include "BST_iterator.hpp"
 
 namespace ft{
 
@@ -24,8 +25,8 @@ class map{
 		typedef const value_type&							const_reference;
 		typedef typename allocator_type::pointer			pointer;
 		typedef typename allocator_type::const_pointer		const_pointer;
-		typedef BST<key_type, value_type>					iterator;
-		typedef BST<key_type, value_type>					const_iterator;
+		typedef BST_iter<Key, T>				iterator;
+		typedef BST_iter<Key, T>				const_iterator;
 		typedef ft::reverse_iterator<iterator>				reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>		const_reverse_iterator;
 
@@ -71,13 +72,25 @@ class map{
 		// 	return (*((this->insert(ft::make_pair(key, mapped_type()))).first)).second;
 		// }
 			
-		// iterator begin();
-		// const_iterator begin() const;
+		iterator begin(){
+			return (iterator(this->_bst.minNode(_bst.getRoot())));
+		}
 
-		// iterator end();
-		// const_iterator end() const;
+		const_iterator cbegin(){
+			return (const_iterator(this->_bst.maxNode()));
+		}
 
-		// reverse_iterator rbegin();
+		iterator end() const{
+			return (iterator(this->_bst.maxNode(_bst.getRoot())));
+		}
+
+		const_iterator cend() const{
+			return (const_iterator(this->_bst.maxNode(_bst.getRoot())));
+		}
+
+		// reverse_iterator rbegin(){
+		// 	return (reverse_iterator(iterator(this->_bst.maxNode(_bst.getRoot()))));
+		// }
 		// const_reverse_iterator rbegin() const;
 
 		// reverse_iterator rend();
@@ -128,31 +141,49 @@ class map{
 			for(; first != last; first++)
 				_bst._insert(*first);
 		}
+
 		void erase( iterator pos ){
 			_bst._erase(pos);
 		}
+
 		void erase( iterator first, iterator last ){
 			for(; first != last; ++first)
 				_bst._erase(*first);
 		}
+
 		size_type erase( const key_type& key ){
 			return _bst._erase(key);
 		}
+
 		void swap( map& other ){
 			map<key_type, mapped_type, key_compare, allocator_type> tmp(other);
-			other.clear();
+
 			other = *this;
-			this->clear();
 			*this = tmp;
 		}
+
 		size_type count( const key_type& key ) const{
 			if(!_bst._findNode(key))
 				return 0;
 			return 1;
 		}
 
-		// iterator find( const Key& key );
-		// const_iterator find( const Key& key ) const;
+		// iterator find( const key_type& key ){
+		// 	iterator res = _bst._findNode(key);
+		// 	if(res)
+		// 		return res;
+		// 	else 
+		// 		return(res = _bst.minNode());
+		// }
+
+		// const_iterator find( const key_type& key ) const{
+		// 	const_iterator res = _bst._findNode(key);
+		// 	if(res)
+		// 		return res;
+		// 	else 
+		// 		return(res = _bst.minNode());
+		// }
+
 		// std::pair<iterator,iterator> equal_range( const Key& key );
 		// std::pair<const_iterator,const_iterator> equal_range( const Key& key ) const;
 		// iterator lower_bound( const Key& key );
