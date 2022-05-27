@@ -6,16 +6,16 @@
 #include "iterator.hpp"
 #include "BST.hpp"
 
-
 namespace ft{
 
-template< class Key, class T, class Compare = std::less<Key>
-, class Allocator = std::allocator<ft::pair<const Key, T> > > class map{
+template< typename Key, typename T, typename Compare = std::less<Key>,
+	typename Allocator = std::allocator<ft::pair<const Key, T> > >
+class map{
 	public:
 
 		typedef Key											key_type;
 		typedef T											mapped_type;
-		typedef ft::pair<const Key, T>						value_type;
+		typedef ft::pair<const key_type, mapped_type>		value_type;
 		typedef std::size_t									size_type;
 		typedef std::ptrdiff_t								difference_type;
 		typedef Compare										key_compare;
@@ -24,32 +24,32 @@ template< class Key, class T, class Compare = std::less<Key>
 		typedef const value_type&							const_reference;
 		typedef typename allocator_type::pointer			pointer;
 		typedef typename allocator_type::const_pointer		const_pointer;
-		typedef BST<value_type, key_compare>				iterator;
-		typedef BST<value_type, key_compare>				const_iterator;
+		typedef BST<key_type, value_type>					iterator;
+		typedef BST<key_type, value_type>					const_iterator;
 		typedef ft::reverse_iterator<iterator>				reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>		const_reverse_iterator;
 
 	private:
 
-		BST<value_type, key_compare>	_bst;
+		BST<key_type, mapped_type>	_bst;
 		key_compare		_comp;
 		allocator_type	_alloc;
 
 	public:
 
+
 		explicit map( const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type() ):
 			_bst(), _comp(comp), _alloc(alloc){}
 
 		// template< class InputIt >
-		// map( InputIt first, InputIt last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()):
-		// 	_comp(comp), _bst(0),_alloc(alloc){
-		// 	_map = _alloc.construct(0);
-		// 	insert()
-
+		// map( InputIt first, InputIt last, const key_compare& comp = key_compare(),
+		// 	const allocator_type& alloc = allocator_type()):
+		// 	_comp(comp), _bst(), _alloc(alloc){
+		// 	for(;first != last; first++)
+		// 		this->_bst._insert(*first);
 		// }
 
-		// map( const map& other ): _limit(other.limit), _size(other._size), _alloc(other._alloc){
-		// }
+		map( const map& other ): _bst(other._bst), _comp(other._comp), _alloc(other._alloc){}
 
 		// map& operator=( const map& other ){
 		// 	this->_size = other._size;
@@ -60,17 +60,17 @@ template< class Key, class T, class Compare = std::less<Key>
 		// 		_alloc.construct(&_map[i], other._map[i]);
 		// }
 
-		// allocator_type get_allocator() const{
-		// 	return this->_alloc;
-		// }
+		allocator_type get_allocator() const{
+			return this->_alloc;
+		}
 
 		// value_type& at( const Key& key );
 		// const value_type& at( const Key& key ) const;
-		// value_type& operator[]( const Key& key ){
-		// 	if !key
-		// 		insert key
-			
+
+		// value_type& operator[]( const key_type& key ){
+		// 	return (*((this->insert(ft::make_pair(key, mapped_type()))).first)).second;
 		// }
+			
 		// iterator begin();
 		// const_iterator begin() const;
 
@@ -96,21 +96,61 @@ template< class Key, class T, class Compare = std::less<Key>
 			return (std::numeric_limits<difference_type>::max());
 		}
 
-		// void clear(){
-		// 	for (; _size != 0; _size--)
-		// 		erase();
+		void clear(){
+			_bst._clear(_bst.getRoot());
+		}
+
+		// ft::pair<iterator, bool> insert( const value_type& key );
+
+		ft::pair<iterator, bool> insert(const value_type& value){
+
+			if(this->_bst._insert(value) != NULL)
+				return(ft::make_pair(iterator(), true));
+			return(ft::make_pair(iterator(), false));
+		}
+
+		void printMap(){
+			this->_bst._printMap(_bst.getRoot());
+			std::cout << std::endl;
+		}
+
+		void minNmax(){
+			this->_bst._minNmax();
+		}
+
+		// iterator insert( iterator hint, const value_type& value ){
+		// 	if(hint != iterator())
+		// 		return(this->_bst._insert(value));
+		// 	return (iterator());
 		// }
 
-		void insert( const value_type& key ){
-			_bst._insert(key);
+		template< class InputIt > void insert( InputIt first, InputIt last ){
+			for(; first != last; first++)
+				_bst._insert(*first);
 		}
-		// iterator insert( iterator hint, const value_type& value );
-		// template< class InputIt > void insert( InputIt first, InputIt last );
-		// void erase( iterator pos );
-		// void erase( iterator first, iterator last );
-		// size_type erase( const Key& key );
-		// void swap( map& other );
-		// size_type count( const Key& key ) const;
+		void erase( iterator pos ){
+			_bst._erase(pos);
+		}
+		void erase( iterator first, iterator last ){
+			for(; first != last; ++first)
+				_bst._erase(*first);
+		}
+		size_type erase( const key_type& key ){
+			return _bst._erase(key);
+		}
+		void swap( map& other ){
+			map<key_type, mapped_type, key_compare, allocator_type> tmp(other);
+			other.clear();
+			other = *this;
+			this->clear();
+			*this = tmp;
+		}
+		size_type count( const key_type& key ) const{
+			if(!_bst._findNode(key))
+				return 0;
+			return 1;
+		}
+
 		// iterator find( const Key& key );
 		// const_iterator find( const Key& key ) const;
 		// std::pair<iterator,iterator> equal_range( const Key& key );

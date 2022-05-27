@@ -4,7 +4,6 @@
 #include "VectorIter.hpp"
 #include <limits>
 
-
 namespace ft{
 
 template< class InputIt1, class InputIt2 >
@@ -46,17 +45,17 @@ bool lexicographical_compare( InputIt1 first1, InputIt1 last1,
 }
 
 
-
-template< class T1, class T2 > struct pair{
+template< typename T1, typename T2 > class pair{
+	public:
 		typedef T1	first_type;
 		typedef T2	second_type;
 
 		first_type first;
 		second_type second;
 
-		pair( ): first(), second(){}
-		pair( const T1& x, const T2& y ): first(x), second(y){}
-		~pair( ){}
+		pair(): first(), second(){}
+		pair( const first_type& x, const second_type& y ): first(x), second(y){}
+		~pair(){}
 
 		template< typename U1, typename U2 >
 		pair( const pair<U1, U2>& p ): first(p.first), second(p.second){}
@@ -68,8 +67,8 @@ template< class T1, class T2 > struct pair{
 		}
 };
 
-template< class T1, class T2 >
-std::pair<T1,T2> make_pair( T1 t, T2 u ){
+template< typename T1, typename T2 >
+pair<T1,T2> make_pair( T1 t, T2 u ){
 	return(pair<T1, T2>(t, u));
 }
 
@@ -79,27 +78,27 @@ bool operator==( const pair<T1,T2>& lhs, const pair<T1,T2>& rhs ){
 }
 
 template< class T1, class T2 >
-bool operator!=( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ){
+bool operator!=( const pair<T1,T2>& lhs, const pair<T1,T2>& rhs ){
 	return !(lhs == rhs);
 }
 
 template< class T1, class T2 >
-bool operator<( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ){
+bool operator<( const pair<T1,T2>& lhs, const pair<T1,T2>& rhs ){
 	return (lhs.first < rhs.first || (lhs.first == rhs.first && lhs.second < rhs.second));
 }
 
 template< class T1, class T2 >
-bool operator>( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ){
+bool operator>( const pair<T1,T2>& lhs, const pair<T1,T2>& rhs ){
 	return !(rhs < lhs);
 }
 
 template< class T1, class T2 >
-bool operator<=( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ){
+bool operator<=( const pair<T1,T2>& lhs, const pair<T1,T2>& rhs ){
 	return rhs < lhs;
 }
 
 template< class T1, class T2 >
-bool operator>=( const std::pair<T1,T2>& lhs, const std::pair<T1,T2>& rhs ){
+bool operator>=( const pair<T1,T2>& lhs, const pair<T1,T2>& rhs ){
 	return !(lhs < rhs);
 }
 

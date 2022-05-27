@@ -7,7 +7,6 @@
 
 namespace ft{
 
-//all this can be found in <iterator> source code xD
 
 struct input_iterator_tag  {};
 struct output_iterator_tag {};

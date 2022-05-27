@@ -368,11 +368,81 @@ int main(int argc, char** argv) {
 
 	// map
 
-	ft::map<std::string, int> m1;
+	ft::map<int, int> m1;
+	ft::map<int, int> m2;
 	std::cout << m1.empty() << std::endl;
 	std::cout << m1.size() << std::endl;
 
-	m1.insert(ft::pair<int, int>(1, 40));	
+	// ft::pair<int, int> test = ft::make_pair<int, int>(100, 40);
+	// std::cout << test.first << " " << test.second << std::endl;
+
+	// m1.insert(ft::make_pair<int, int>(4, 40));
+	// m1.insert(ft::make_pair<int, int>(5, 10));
+	// m1.insert(ft::make_pair<int, int>(3, 5555));
+	// m1.insert(ft::make_pair<int, int>(1, 600));
+	// m1.insert(ft::make_pair<int, int>(0, 450));
+	// m1.insert(ft::make_pair<int, int>(2, 790));
+
+	m1.insert(ft::make_pair<int, int>(50,5));
+	m1.insert(ft::make_pair<int, int>(30,3));
+	m1.insert(ft::make_pair<int, int>(20,2));
+	m1.insert(ft::make_pair<int, int>(40,4));
+	m1.insert(ft::make_pair<int, int>(70,7));
+	m1.insert(ft::make_pair<int, int>(60,6));
+	m1.insert(ft::make_pair<int, int>(80,8));
+
+	m2.insert(ft::make_pair<int, int>(4,4));
+	m2.insert(ft::make_pair<int, int>(7,7));
+	m2.insert(ft::make_pair<int, int>(6,6));
+	m2.insert(ft::make_pair<int, int>(8,8));
+
+	std::cout << "m1 empty: " << m1.empty() << std::endl;
+	std::cout << "m1 size: " << m1.size() << std::endl;
+	std::cout << "m1 map: "; m1.printMap();
+	std::cout << std::endl;
+	std::cout << "m2 empty: " << m2.empty() << std::endl;
+	std::cout << "m2 size: " << m2.size() << std::endl;
+	std::cout << "m2 map: "; m2.printMap();
+
+	std::cout << std::endl;
+	std::cout << "swapping m1 and m2 \n"; m1.swap(m2);
+	std::cout << std::endl;
+
+	std::cout << "m1 empty: " << m1.empty() << std::endl;
+	std::cout << "m1 size: " << m1.size() << std::endl;
+	std::cout << "m1 map: "; m1.printMap();
+	std::cout << std::endl;
+	std::cout << "m2 empty: " << m2.empty() << std::endl;
+	std::cout << "m2 size: " << m2.size() << std::endl;
+	std::cout << "m2 map: "; m2.printMap();
+
+
+	// std::cout << m1.empty() << std::endl;
+	// std::cout << m1.size() << std::endl;
+	// m1.printMap();
+	// std::cout << std::endl;
+	// m1.minNmax();
+
+
+	// std::cout << m1.erase(0) << std::endl;
+	// m1.erase(20);
+	// m1[40];
+	// m1.clear();
+	// m1.insert(ft::make_pair<int, int>(60,6));
+
+	// m1[25] = 4;
+
+	// std::cout << m1.count(30) << std::endl;
+	// m1.printMap();
+	// m1.erase(30);
+	// m1.printMap();
+	// m1.erase(50);
+	// m1.printMap();
+	// std::cout << "size " << m1.size() << std::endl;
+	// m1.erase(80);
+
+
+	
 
 	time(&end);
 	double diff = difftime(end, start);
