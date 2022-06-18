@@ -5,6 +5,7 @@
 #include <string>
 #include <deque>
 #include <time.h>
+#include <map>
 
 #if 0  //CREATE A REAL STL EXAMPLE
 	#include <map>
@@ -41,6 +42,15 @@ void	print_stack(ft::stack<T> s, size_t id = 0, const std::string& delimiter = "
 	}
 }
 
+template<typename T, typename U>
+void	print_map(const ft::map<T, U>& m, std::string comment = "")
+{
+	std::cout << comment;
+	for (typename ft::map<T, U>::const_iterator it = m.cbegin(); it != m.cend(); it++)
+		std::cout << it->first << " = " << it->second << "; ";
+	std::cout << '\n';
+}
+
 
 
 #include <stdlib.h>
@@ -75,18 +85,10 @@ public:
 	iterator end() { return this->c.end(); }
 };
 
-int main(int argc, char** argv) {
-	if (argc != 2)
-	{
-		std::cerr << "Usage: ./test seed" << std::endl;
-		std::cerr << "Provide a seed please" << std::endl;
-		std::cerr << "Count value:" << COUNT << std::endl;
-		return 1;
-	}
+int main() {
 	time_t	start, end;
 	time(&start);
-	const int seed = atoi(argv[1]);
-	srand(seed);
+	srand(10);
 
 	ft::vector<std::string> vector_str;
 	ft::vector<int> vector_int;
@@ -368,10 +370,10 @@ int main(int argc, char** argv) {
 
 	// map
 
-	ft::map<int, int> m1;
-	ft::map<int, int> m2;
-	std::cout << m1.empty() << std::endl;
-	std::cout << m1.size() << std::endl;
+	// ft::map<int, int> m1;
+	// ft::map<int, int> m2;
+	// std::cout << m1.empty() << std::endl;
+	// std::cout << m1.size() << std::endl;
 
 	// ft::pair<int, int> test = ft::make_pair<int, int>(100, 40);
 	// std::cout << test.first << " " << test.second << std::endl;
@@ -383,45 +385,69 @@ int main(int argc, char** argv) {
 	// m1.insert(ft::make_pair<int, int>(0, 450));
 	// m1.insert(ft::make_pair<int, int>(2, 790));
 
-	m1.insert(ft::make_pair<int, int>(50,5));
-	m1.insert(ft::make_pair<int, int>(30,3));
-	m1.insert(ft::make_pair<int, int>(20,2));
-	m1.insert(ft::make_pair<int, int>(40,4));
-	m1.insert(ft::make_pair<int, int>(70,7));
-	m1.insert(ft::make_pair<int, int>(60,6));
-	m1.insert(ft::make_pair<int, int>(80,8));
+	// m1.insert(ft::make_pair<int, int>(50,5));
+	// m1.insert(ft::make_pair<int, int>(30,3));
+	// m1.insert(ft::make_pair<int, int>(20,2));
+	// m1.insert(ft::make_pair<int, int>(40,4));
+	// m1.insert(ft::make_pair<int, int>(70,7));
+	// m1.insert(ft::make_pair<int, int>(60,6));
+	// m1.insert(ft::make_pair<int, int>(80,8));
 
-	m2.insert(ft::make_pair<int, int>(4,4));
-	m2.insert(ft::make_pair<int, int>(7,7));
-	m2.insert(ft::make_pair<int, int>(6,6));
-	m2.insert(ft::make_pair<int, int>(8,8));
+	// m2.insert(ft::make_pair<int, int>(4,4));
+	// m2.insert(ft::make_pair<int, int>(7,7));
+	// m2.insert(ft::make_pair<int, int>(6,6));
+	// m2.insert(ft::make_pair<int, int>(8,8));
 
-	std::cout << "m1 empty: " << m1.empty() << std::endl;
-	std::cout << "m1 size: " << m1.size() << std::endl;
-	std::cout << "m1 map: "; m1.printMap();
-	std::cout << std::endl;
-	std::cout << "m2 empty: " << m2.empty() << std::endl;
-	std::cout << "m2 size: " << m2.size() << std::endl;
-	std::cout << "m2 map: "; m2.printMap();
+	// std::cout << "m1 empty: " << m1.empty() << std::endl;
+	// std::cout << "m1 size: " << m1.size() << std::endl;
+	// std::cout << "m1 map: ";
+	// // m1.printMap();
+	// std::cout << std::endl;
+	// std::cout << "m2 empty: " << m2.empty() << std::endl;
+	// std::cout << "m2 size: " << m2.size() << std::endl;
+	// // std::cout << "m2 map: "; m2.printMap();
 
-	std::cout << std::endl;
-	std::cout << "swapping m1 and m2 \n"; m1.swap(m2);
-	std::cout << std::endl;
+	// std::cout << std::endl;
+	// std::cout << "swapping m1 and m2 \n"; m1.swap(m2);
+	// std::cout << std::endl;
 
-	std::cout << "m1 empty: " << m1.empty() << std::endl;
-	std::cout << "m1 size: " << m1.size() << std::endl;
-	std::cout << "m1 map: "; m1.printMap();
-	std::cout << std::endl;
-	std::cout << "m2 empty: " << m2.empty() << std::endl;
-	std::cout << "m2 size: " << m2.size() << std::endl;
-	std::cout << "m2 map: "; m2.printMap();
+	// std::cout << "m1 empty: " << m1.empty() << std::endl;
+	// std::cout << "m1 size: " << m1.size() << std::endl;
+	// // std::cout << "m1 map: "; m1.printMap();
+	// std::cout << std::endl;
+	// std::cout << "m2 empty: " << m2.empty() << std::endl;
+	// std::cout << "m2 size: " << m2.size() << std::endl;
+	// // std::cout << "m2 map: "; m2.printMap();
 
-	typename ft::map<int, int>::iterator it = m2.begin();
-	typename ft::map<int, int>::iterator it2 = m2.end();
-	std:: cout << "begin of m2: " << it->first << std::endl;
-	std:: cout << "end of m2 " << it2->first << std::endl;
-	for(; it != it2; ++it)
-		std:: cout << "m2: " << it->first << std::endl;
+	// std::cout << std::endl;
+
+	// m2[22] = 5;
+
+	// typename ft::map<int, int>::iterator fit = m2.begin();
+	// typename ft::map<int, int>::iterator fit2 = m2.end();
+	// for(; fit != fit2; ++fit)
+	// 	std::cout << fit->first << ":" << fit->second << " ";
+
+	// std::cout << std::endl;
+
+	// ft::map<int, int> m3;
+	// m3.insert(ft::make_pair<int, int>(5,50));
+	// m3.insert(ft::make_pair<int, int>(2,30));
+	// m3.insert(ft::make_pair<int, int>(1,10));
+	// m3.insert(ft::make_pair<int, int>(4,70));
+
+	// typename ft::map<int, int>::iterator m3it = m3.lower_bound(2);
+	// typename ft::map<int, int>::iterator m3it2 = m3.upper_bound(3);
+	// std::cout << m3it->first << std::endl;
+	// std::cout << m3it2->first << std::endl;
+
+	// typename ft::map<int, int>::iterator m3find = m3.find(1);
+	// std::cout << m3find->second << std::endl;
+
+	// std::cout << m2.at(22) << std::endl;
+
+
+
 
 	// std::cout << m1.empty() << std::endl;
 	// std::cout << m1.size() << std::endl;
@@ -439,14 +465,182 @@ int main(int argc, char** argv) {
 	// m1[25] = 4;
 
 	// std::cout << m1.count(4) << std::endl;
-	// m1.printMap();
-	// m1.erase(30);
-	// m1.printMap();
-	// m1.erase(50);
-	// m1.printMap();
+	// m2.printMap();
+	// m2.erase(30);
+	// m2.printMap();
+	// m2.erase(50);
+	// m2.printMap();
 	// std::cout << "size " << m1.size() << std::endl;
 	// m1.erase(80);
 
+	ft::map<std::string, int> m1;
+	std::cout << m1.empty() << std::endl;
+
+	m1["CPU"] = 10;
+	m1["GPU"] = 15;
+	m1["RAM"] = 20;
+
+	std::cout << m1.empty() << std::endl;
+
+	print_map(m1, "Initial map: ");
+
+	m1["CPU"] = 25;
+	m1["SSD"] = 30;
+	print_map(m1, "Updated map: ");
+
+	std::cout << "m1[UPS] = " << m1["UPS"] << '\n';
+	print_map(m1, "Updated map: ");
+
+	m1.erase("GPU");
+	print_map(m1, "After erase: ");
+
+	std::cout << "m.size() = " << m1.size() << '\n';
+
+	ft::map<std::string, int> m2 = m1;
+	print_map(m2, "Copy constructed map: ");
+
+	std::cout << std::boolalpha << "m1 and m2 are equivalent: " << (m1 == m2) << '\n';
+	m2["PSU"] = 34;
+	m2["sPeripherals"] = 12;
+	print_map(m2, "Updated map: ");
+	std::cout << std::boolalpha << "m1 and m2 are equivalent: " << (m1 == m2) << '\n';
+
+	m1.swap(m2);
+	print_map(m2, "Swapped map: ");
+
+	ft::map<std::string, int> m3(m1);
+	ft::map<std::string, int>::iterator mit01 = m3.begin();
+	ft::map<std::string, int>::iterator mit02 = m3.end();
+	mit02--;
+	// ft::map<std::string, int>::reverse_iterator rmit01 = m3.rbegin();
+	// ft::map<std::string, int>::reverse_iterator rmit02 = m3.rend();
+	// rmit02++;
+	print_map(m3, "m3: ");
+
+	std::cout << "Begin --- Key: " << mit01->first << " | Value: " << mit01->second << std::endl;
+	std::cout << "End   --- Key: " << mit02->first << " | Value: " << mit02->second << std::endl;
+	// // std::cout << "Reverse Begin --- Key: " << rmit01->first << " | Value: " << rmit01->second << std::endl;
+	// std::cout << "Reverse End   --- Key: " << rmit02->first << " | Value: " << rmit02->second << std::endl;
+
+	ft::map<std::string, int> m4(mit01, mit02);
+	print_map(m4, "m4: ");
+	std::cout << "m4 size = " << m4.size() << std::endl;
+	std::cout << "m4 size = " << m4.max_size() << std::endl;
+
+	ft::map<std::string, int>::allocator_type mapalloc = m4.get_allocator();
+
+	ft::map<std::string, int> m5 = m4;
+
+	m2["Mousepad"] = 5;
+	m5.insert(m2.begin(), m2.end());
+	print_map(m2, "m2: ");
+	print_map(m5, "m5: ");
+
+	ft::map<std::string, int> m6 = m5;
+	m6.erase(m6.begin());
+	print_map(m6, "m6: ");
+	print_map(m2, "m2: ");
+
+	std::cout << "M6 size is " << m6.size() << std::endl;
+	m6.erase(m6.begin(), m6.end());
+	print_map(m6, "erased: m6: ");
+
+	m6.swap(m5);
+	print_map(m6, "m6: ");
+	print_map(m5, "swapped with m5: ");
+
+	std::cout << m5.count("RAM") << std::endl;
+	std::cout << m5.count("HDD") << std::endl;
+
+	if (m5.find("RAM") == m5.end())
+			std::cout << "RAM not found" << std::endl;
+	if (m5.find("UPS") == m5.end())
+			std::cout << "UPS not found" << std::endl;
+	print_map(m5, "m5: ");
+	// ft::pair<ft::map<std::string, int>::iterator, ft::map<std::string, int>::iterator> range00 = m6.equal_range("PSU");
+
+	// // std::cout << range00.first->first << " = " << range00.first->second << std::endl;
+	// std::cout << range00.second->first << " = " << range00.second->second << std::endl;
+	std::cout << (*m6.lower_bound("PSU")).first << " = " << (*m6.lower_bound("PSU")).second << std::endl;
+	std::cout << (*m6.upper_bound("PSU")).first << " = " << (*m6.upper_bound("PSU")).second << std::endl;
+	std::cout << "1) " << std::boolalpha << (m3 == m5) << std::endl;
+	std::cout << "2) " << std::boolalpha << (m3 != m5) << std::endl;
+	std::cout << "3) " << std::boolalpha << (m3 <  m5) << std::endl;
+	std::cout << "4) " << std::boolalpha << (m3 >  m5) << std::endl;
+	std::cout << "5) " << std::boolalpha << (m3 >= m5) << std::endl;
+	std::cout << "6) " << std::boolalpha << (m3 <= m5) << std::endl;
+
+	ft::map<std::string, int>::key_compare key_comp_map = m1.key_comp();
+	ft::map<std::string, int>::value_compare val_comp_map = m1.value_comp();
+
+	std::cout << std::boolalpha << "Python is lexicographically less than C: " << key_comp_map("Python", "C") << '\n';
+	std::cout << (std::string("Python") < std::string("C")) << '\n';
+
+	ft::map<std::string, int>::value_type value1_map = ft::make_pair("C", 2);
+	ft::map<std::string, int>::value_type value2_map = ft::make_pair("C++", 7);
+
+	std::cout << std::boolalpha << "C is lexicographically less than C++: " << val_comp_map(value1_map, value2_map) << '\n';
+	std::cout << "C comp C++ : " << (std::string("C") < std::string("C++")) << '\n';
+
+	ft::map<std::string, int>::iterator it01 = m1.find("SSD");
+	(void)it01;
+	std::cout << "Key \"SSD\" is in the map: " << m1.count("SSD") << '\n';
+	std::cout << "Key \"Stereo\" is in the map: " << m1.count("Stereo") << '\n';
+	m1.clear();
+	std::cout << std::boolalpha << "Map is empty: " << m1.empty() << '\n';
+
+	ft::map<std::string, int>::reverse_iterator mrev2;
+	ft::map<std::string, int>::const_iterator mci1;
+	ft::map<std::string, int>::iterator mi1;
+
+	std::cout << m1.empty() << std::endl;
+
+	m1["CPU"] = 10;
+	m1["GPU"] = 15;
+	m1["RAM"] = 20;
+
+	std::cout << m1.empty() << std::endl;
+
+	print_map(m1, "Initial map: ");
+
+	m1["CPU"] = 25;
+	m1["SSD"] = 30;
+	print_map(m1, "Updated map: ");
+
+	std::cout << "m1[UPS] = " << m1["UPS"] << '\n';
+	print_map(m1, "Updated map: ");
+	mci1 = m1.begin();
+	std::cout << "const iterator" << std::endl;
+	while (mci1 != m1.end())
+	{
+			std::cout << (*mci1).first << std::endl;
+			mci1++;
+	}
+	std::cout << "iterator" << std::endl;
+	mi1 = m1.begin();
+	while (mi1 != m1.end())
+	{
+			std::cout << (*mi1).first << std::endl;
+			mi1++;
+	}
+	// std::cout << "reverse_iterator" << std::endl;
+	// mrev2 = m1.rbegin();
+	// while (mrev2 != m1.rend())
+	// {
+	// 		std::cout << (*mrev2).first << std::endl;
+	// 		mrev2++;
+	// }
+	
+	// std::cout << "const_reverse_iterator" << std::endl;
+	// ft::map<std::string, int>::const_reverse_iterator mrev1;
+	// ft::map<std::string, int>::const_reverse_iterator mrev3;
+	// mrev1 = m1.rbegin();
+	// mrev3 = m1.rend();
+	// while (mrev1 != m1.rend())
+	// {
+	// 		std::cout << (*mrev1).first << std::endl;
+	// 		mrev1++;
+	// }
 
 	
 

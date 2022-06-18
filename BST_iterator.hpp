@@ -17,9 +17,9 @@ class BST_iter : public ft::iterator<std::bidirectional_iterator_tag, T>
         typedef ft::pair<const key_type, mapped_type>   value_type;
 		typedef std::size_t								size_type;
 		typedef std::ptrdiff_t							difference_type;
-		typedef const value_type& 						const_reference;	
+		typedef const value_type& 						const_reference;
+		typedef typename BST<key_type, mapped_type>::node*	BST_node;	
 	private:
-		typedef typename BST<key_type, mapped_type>::node*	BST_node;
 		BST_node _p;
 	
 	public:
@@ -41,31 +41,51 @@ class BST_iter : public ft::iterator<std::bidirectional_iterator_tag, T>
 
 		BST_iter& operator++(){
 			if(!_p)
-				return *this;
-			if(!_p->right)
-				// BST<key_type, mapped_type>::minNode(_p->right);
+				return _p->end();
+			if(_p->right != NULL){
+				_p = _p->right;
+				while(_p->left && _p->left != NULL)
+					_p = _p->left;
+			}
 			else{
-				for(; _p->right->right != NULL;)
-					_p = _p->right;
+				BST_node tmp = _p->parent;
+				while (tmp != NULL && _p == tmp->right) {
+					_p = tmp;
+					tmp = tmp->parent;
+				}
+				_p = tmp;
 			}
 			return *this;
-				
-
 		}
 
 		BST_iter operator++(int){
 			BST_iter tmp = *this;
-			++*this;
+			++(*this);
 			return tmp;
 		}
 
 		BST_iter& operator--(){
-
+			if(!_p)
+				return *this;
+			if(_p->left != NULL){
+				_p = _p->left;
+				while(_p->right && _p->right != NULL)
+					_p = _p->right;
+			}
+			else{
+				BST_node tmp = _p->parent;
+				while (tmp != NULL && _p == tmp->left) {
+					_p = tmp;
+					tmp = tmp->parent;
+				}
+				_p = tmp;
+			}
+			return *this;
 		}
 
 		BST_iter operator--(int){
 			BST_iter tmp = *this;
-			--*this;
+			--(*this);
 			return tmp;
 		}
 
@@ -74,17 +94,16 @@ class BST_iter : public ft::iterator<std::bidirectional_iterator_tag, T>
 		}
 
 		value_type& operator*(){
-			return *(_p->data);
+			return (static_cast<BST_node>(_p)->data);
 		}
 
-		bool operator==(const BST_iter<key_type, mapped_type>& lhs) const{
+		bool operator==(const BST_iter<key_type, mapped_type>& lhs) {
 			return lhs.getPtr() == this->getPtr();
 		}
 
-		bool operator!=(const BST_iter<key_type, mapped_type>& lhs) const{
+		bool operator!=(const BST_iter<key_type, mapped_type>& lhs) {
 			return !(lhs.getPtr() == this->getPtr());
 		}
-
 };
 }
 

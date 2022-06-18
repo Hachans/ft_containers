@@ -28,8 +28,8 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 		struct node{
 			node *left;
 			node *right;
+			node *parent;
 			value_type data;
-			// pointer data;
 		};
 
 	private:
@@ -56,14 +56,15 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 
 		size_type size() const{ return this->_size; }
 
-		node *_new_node(const value_type &value, node* left = NULL, node* right = NULL){
+		node *_new_node(const value_type &value, node* left = NULL, node* right = NULL, node* parent = NULL){
 			
 			node *new_node = _node_alloc.allocate(1);
 
-			// new_node->data = _alloc.allocate(1);
 			_alloc.construct(&(new_node->data), value);
 			new_node->left = left;
 			new_node->right = right;
+			new_node->parent = parent;
+			_size++;
 			return(new_node);
 		}
 
@@ -88,8 +89,13 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 				_clear(nd->right);
 			if (nd->left)
 				_clear(nd->left);
-			if(_isLeaf(nd))
-				delete nd;
+			if(_isLeaf(nd)){
+				if(nd->parent && nd->parent->right == nd)
+					nd->parent->right = NULL;
+				else if(nd->parent && nd->parent->left == nd)
+					nd->parent->left = NULL;
+				_node_alloc.deallocate(nd, 1);
+			}
 			if(nd == _bst)
 				_bst = NULL;
 			_size--;
@@ -111,41 +117,31 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 		}
 
 		node* _insert(const value_type& value){
-			node* found = _insertPos(value);;
+			node* found;
+			node* tmp;
 		
-			if(found && extract_key(found->data) == extract_key(value))
-				return NULL;
-			node* new_node = _new_node(value);
-			if(found == NULL)
-				_bst = new_node;
-			else if(_comp(extract_key(value), extract_key(found->data)))
-				found->left = new_node;
-			else
-				found->right = new_node;
-			_size++;
-			return found;
-		}
-
-		node*	_insertPos(const value_type& value)
-		{
-			node* p = _bst;
-
-			for (; p != NULL && extract_key(p->data) != extract_key(value);)
-			{
-				if (_comp(extract_key(value), extract_key(p->data)))
-				{
-					if (p->left == NULL)
-						return p;
-					p = p->left;
-				}
-				else
-				{
-					if (p->right == NULL)
-						return p;
-					p = p->right;
-				}
+			if(!_bst){
+				_bst = _new_node(value);
+				return _bst;
 			}
-			return p;
+			found = _findNode(value.first);
+			if(found)
+				return found;
+			tmp = NULL;
+			found = _bst;
+			while(found != NULL){
+				tmp = found;
+				if(value.first < found->data.first)
+					found = found->left;
+				else
+					found = found->right;
+			}
+			found = _new_node(value, NULL, NULL, tmp);
+			if(value.first < tmp->data.first)
+				tmp->left = found;
+			else
+				tmp->right = found;
+			return found;
 		}
 		
 		void _printMap(node* root)
@@ -175,7 +171,7 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 			return current;
 		}
 
-		node* maxNode(node* bst) const{
+		node* 	maxNode(node* bst) const{
 			node* current = bst;
 		
 			while (current && current->right != NULL)
@@ -187,36 +183,44 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 			_alloc.construct(&(curr->data), val);
 		}
 
-		void _deleteNode(node* &bst, const key_type& key){
+		void _deleteNode(node* bst){
+
+			node* tmp = NULL;
 			if(!bst)
 				return ;
-			if(bst->data.first == key)
+			if(_isLeaf(bst))
+				_clear(bst);
+			else if(!_isLeaf(bst))
 			{
-				if(bst->right && bst->left){
-					node* tmp = minNode(bst->right);
-					changeData(bst, tmp->data);
-					_deleteNode(bst->right, tmp->data.first);
-				}
-				else{
-					if(_isLeaf(bst))
-						bst = NULL;
-					else if(bst->left)
-						bst = bst->left;
-					else
-						bst = bst->right;
-				}
+				if(bst->left)
+					tmp = maxNode(bst->left);
+				else if(bst->right)
+					tmp = minNode(bst->right); 
+				changeData(bst, tmp->data);
+				_deleteNode(tmp);
 			}
-			else if(key < bst->data.first)
-				_deleteNode(bst->left, key);
-			else
-				_deleteNode(bst->right, key);
 		}
 
+		// if(bst->right && bst->left){
+		// 			node* tmp = minNode(bst->right);
+		// 			changeData(bst, tmp->data);
+		// 			_deleteNode(bst->right, tmp->data.first);
+		// 		}
+		// 		else{
+		// 			if(_isLeaf(bst))
+		// 				bst = NULL;
+		// 			else if(bst->left)
+		// 				bst = bst->left;
+		// 			else
+		// 				bst = bst->right;
+
 		size_type _erase(const key_type &key){
-			if(!_bst)
+			 
+			 node*	found = _findNode(key);
+
+			if(!_bst || !found)
 				return 0;
-			_deleteNode(_bst, key);
-			_size--;
+			_deleteNode(found);
 			return 1;
 		}
 
@@ -227,12 +231,30 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 				tmp = tmp->left;
 			return (tmp);
 		}
+
+		node*	end(void) const{
+			node*	tmp = this->_bst;
+
+			while (tmp && tmp->right)
+				tmp = tmp->right;
+			tmp = tmp->right;
+			return (tmp);
+		}
 		
 		node*	rbegin(void) const{
 			node*	tmp = this->_bst;
 
 			while (tmp && tmp->right)
 				tmp = tmp->right;
+			return (tmp);
+		}
+
+		node*	rend(void) const{
+			node*	tmp = this->_bst;
+
+			while (tmp && tmp->left)
+				tmp = tmp->left;
+			tmp = tmp->left;
 			return (tmp);
 		}
 
