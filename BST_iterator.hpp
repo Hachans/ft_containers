@@ -21,27 +21,33 @@ class BST_iter : public ft::iterator<std::bidirectional_iterator_tag, T>
 		typedef typename BST<key_type, mapped_type>::node*	BST_node;	
 	private:
 		BST_node _p;
+		BST_node _first;
+		BST_node _last;
 	
 	public:
 
-		BST_iter(): _p(NULL){}
+		BST_iter(): _p(NULL), _first(NULL), _last(NULL){}
 
-		BST_iter(BST_node nd): _p(nd){}
+		BST_iter(BST_node nd, BST_node f = NULL, BST_node l = NULL): _p(nd), _first(f), _last(l){}
 		
 		~BST_iter(){}
 
-		BST_iter(const BST_iter& it) : _p(it._p) {}
+		BST_iter(const BST_iter& it) : _p(it._p), _first(it._first), _last(it._last) {}
 
 		BST_node getPtr() const { return this->_p; }
+		BST_node getf() const { return this->_first; }
+		BST_node getl() const { return this->_last; }
 
 		BST_iter& operator=(const BST_iter& other){
 			_p = other._p;
+			_first = other._first;
+			_last = other._last;
 			return *this;
 		}
 
 		BST_iter& operator++(){
 			if(!_p)
-				return _p->end();
+				_p = _first;
 			if(_p->right != NULL){
 				_p = _p->right;
 				while(_p->left && _p->left != NULL)
@@ -66,7 +72,7 @@ class BST_iter : public ft::iterator<std::bidirectional_iterator_tag, T>
 
 		BST_iter& operator--(){
 			if(!_p)
-				return *this;
+				_p = _last;
 			if(_p->left != NULL){
 				_p = _p->left;
 				while(_p->right && _p->right != NULL)

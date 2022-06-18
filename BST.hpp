@@ -201,19 +201,6 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 			}
 		}
 
-		// if(bst->right && bst->left){
-		// 			node* tmp = minNode(bst->right);
-		// 			changeData(bst, tmp->data);
-		// 			_deleteNode(bst->right, tmp->data.first);
-		// 		}
-		// 		else{
-		// 			if(_isLeaf(bst))
-		// 				bst = NULL;
-		// 			else if(bst->left)
-		// 				bst = bst->left;
-		// 			else
-		// 				bst = bst->right;
-
 		size_type _erase(const key_type &key){
 			 
 			 node*	found = _findNode(key);

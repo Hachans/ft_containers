@@ -109,19 +109,19 @@ class map{
 		}
 			
 		iterator begin(){
-			return (iterator(_bst.begin()));
+			return (iterator(_bst.begin(), _bst.begin(), _bst.rbegin()));
 		}
 
 		const_iterator cbegin() const {
-			return (const_iterator(_bst.begin()));
+			return (const_iterator(_bst.begin(), _bst.begin(), _bst.rbegin()));
 		}
 
 		iterator end(){
-			return (iterator(_bst.end()));
+			return (iterator(NULL, _bst.begin(), _bst.rbegin()));
 		}
 
 		const_iterator cend() const{
-			return (const_iterator(_bst.end()));
+			return (const_iterator(NULL, _bst.begin(), _bst.rbegin()));
 		}
 
 		reverse_iterator rbegin(){
@@ -222,43 +222,43 @@ class map{
 				return(const_iterator(cend()));
 		}
 
-		std::pair<iterator,iterator> equal_range( const key_type& key ){
+		ft::pair<iterator,iterator> equal_range( const key_type& key ){
 			return(ft::make_pair(lower_bound(key), upper_bound(key)));
 		}
 
-		std::pair<const_iterator,const_iterator> equal_range( const Key& key ) const{
+		ft::pair<const_iterator,const_iterator> equal_range( const key_type& key ) const{
 			return(ft::make_pair(lower_bound(key), upper_bound(key)));
 		}
 
 		iterator lower_bound( const key_type& key ){
-			iterator it  = begin();
+			iterator it  = cbegin();
 
-			while (it != end() && _comp(it->first, key))
+			while (it != cend() && _comp(it->first, key))
 				++it;
-			return (it);
+			return it;
 		}
 
-		const_iterator lower_bound( const Key& key ) const{
-			const_iterator it  = begin();
+		const_iterator lower_bound( const key_type& key ) const{
+			const_iterator it  = cbegin();
 
-			while (it != end() && _comp(it->first, key))
+			while (it != cend() && _comp(it->first, key))
 				++it;
-			return (it);
+			return it;
 		}
 
 		iterator upper_bound( const key_type& key ){
-			iterator it  = begin();
+			iterator it  = cbegin();
 
-			while (it != end() && !_comp(key, it->first))
+			while (it != cend() && !_comp(key, it->first))
 				++it;
-			return (it);
+			return it;
 		}
-		const_iterator upper_bound( const Key& key ) const{
-			const_iterator it  = begin();
+		const_iterator upper_bound( const key_type& key ) const{
+			const_iterator it  = cbegin();
 
-			while (it != end() && !_comp(key, it->first))
+			while (it != cend() && !_comp(key, it->first))
 				++it;
-			return (it);
+			return it;
 		}
 
 		key_compare key_comp() const{

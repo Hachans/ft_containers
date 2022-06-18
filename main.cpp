@@ -519,7 +519,7 @@ int main() {
 
 	std::cout << "Begin --- Key: " << mit01->first << " | Value: " << mit01->second << std::endl;
 	std::cout << "End   --- Key: " << mit02->first << " | Value: " << mit02->second << std::endl;
-	// // std::cout << "Reverse Begin --- Key: " << rmit01->first << " | Value: " << rmit01->second << std::endl;
+	// std::cout << "Reverse Begin --- Key: " << rmit01->first << " | Value: " << rmit01->second << std::endl;
 	// std::cout << "Reverse End   --- Key: " << rmit02->first << " | Value: " << rmit02->second << std::endl;
 
 	ft::map<std::string, int> m4(mit01, mit02);
@@ -557,10 +557,10 @@ int main() {
 	if (m5.find("UPS") == m5.end())
 			std::cout << "UPS not found" << std::endl;
 	print_map(m5, "m5: ");
-	// ft::pair<ft::map<std::string, int>::iterator, ft::map<std::string, int>::iterator> range00 = m6.equal_range("PSU");
+	ft::pair<ft::map<std::string, int>::iterator, ft::map<std::string, int>::iterator> range00 = m6.equal_range("PSU");
 
-	// // std::cout << range00.first->first << " = " << range00.first->second << std::endl;
-	// std::cout << range00.second->first << " = " << range00.second->second << std::endl;
+	std::cout << range00.first->first << " ==== " << range00.first->second << std::endl;
+	std::cout << range00.second->first << " === " << range00.second->second << std::endl;
 	std::cout << (*m6.lower_bound("PSU")).first << " = " << (*m6.lower_bound("PSU")).second << std::endl;
 	std::cout << (*m6.upper_bound("PSU")).first << " = " << (*m6.upper_bound("PSU")).second << std::endl;
 	std::cout << "1) " << std::boolalpha << (m3 == m5) << std::endl;
