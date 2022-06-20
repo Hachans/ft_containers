@@ -148,242 +148,247 @@ int main() {
 	// }
 	// std::cout << std::endl;
 
-	// /* vector */
-	// ft::vector<int> v1;
-	// print_vector(v1, 1);
 
-	// ft::vector<int> v2(size_t(8), int(42));
-	// print_vector(v2, 2);
 
-	// ft::vector<int>::iterator it_tmp1 = v2.begin() + 1;
-	// ft::vector<int>::const_iterator c_it_tmp = v2.end() - 2;
-	// ft::vector<int>::iterator it_tmp2 = v2.end() - 2;
+	/* vector */
+	ft::vector<int> v1;
+	print_vector(v1, 1);
 
-	// ft::vector<int> v3(it_tmp1, it_tmp2);
-	// print_vector(v3, 3);
+	ft::vector<int> v2(size_t(8), int(42));
+	print_vector(v2, 2);
 
-	// ft::vector<int> v4(v3);
-	// print_vector(v4, 4);
+	ft::vector<int>::iterator it_tmp1 = v2.begin() + 1;
+	ft::vector<int>::const_iterator c_it_tmp = v2.end() - 2;
+	ft::vector<int>::iterator it_tmp2 = v2.end() - 2;
 
-	// ft::vector<int> v5 = v4;
-	// print_vector(v5, 5);
+	ft::vector<int> v3(it_tmp1, it_tmp2);
+	print_vector(v3, 3);
 
-	// std::cout << "it_tmp1 > c_it_tmp: " << std::boolalpha << (it_tmp1 > c_it_tmp) << std::endl;
-	// std::cout << "it_tmp1 < c_it_tmp: " << std::boolalpha << (it_tmp1 < c_it_tmp) << std::endl;
+	ft::vector<int> v4(v3);
+	print_vector(v4, 4);
 
-	// std::cout << "v1 is empty: "<< v1.empty() << std::endl;
-	// std::cout << "v5 is empty: "<< v5.empty() << std::endl;
+	ft::vector<int> v5 = v4;
+	print_vector(v5, 5);
 
-	// std::cout << "v1 has size " << v1.size() << " and capacity " << v1.capacity() << std::endl;
-	// std::cout << "v5 has size " << v5.size() << " and capacity " << v5.capacity() << std::endl;
+	std::cout << "it_tmp1 > c_it_tmp: " << std::boolalpha << (it_tmp1 > c_it_tmp) << std::endl;
+	std::cout << "it_tmp1 < c_it_tmp: " << std::boolalpha << (it_tmp1 < c_it_tmp) << std::endl;
 
-	// std::cout << "v1 has max size of " << v1.max_size() << std::endl;
-	// std::cout << "v5 has max size of " << v5.max_size() << std::endl;
+	std::cout << "v1 is empty: "<< v1.empty() << std::endl;
+	std::cout << "v5 is empty: "<< v5.empty() << std::endl;
 
-	// v5.resize(20);
-	// print_vector(v5, 5);
-	// std::cout << v5[v5.size() - 1] << std::endl;
-	// std::cout << v5.at(v5.size() - 1) << std::endl;
+	std::cout << "v1 has size " << v1.size() << " and capacity " << v1.capacity() << std::endl;
+	std::cout << "v5 has size " << v5.size() << " and capacity " << v5.capacity() << std::endl;
+
+	std::cout << "v1 has max size of " << v1.max_size() << std::endl;
+	std::cout << "v5 has max size of " << v5.max_size() << std::endl;
+
+	v5.resize(20);
+	print_vector(v5, 5);
+	std::cout << v5[v5.size() - 1] << std::endl;
+	std::cout << v5.at(v5.size() - 1) << std::endl;
 	
-	// std::cout << v5.front() << std::endl;
-	// std::cout << v5.back() << std::endl;
+	std::cout << v5.front() << std::endl;
+	std::cout << v5.back() << std::endl;
 
-	// ft::vector<int> v6;
-	// v6.assign(7, 100);
-	// print_vector(v5, 5);
+	ft::vector<int> v6;
+	v6.assign(7, 100);
+	print_vector(v5, 5);
 	
-	// ft::vector<int>::iterator v6_it1 = v5.begin() + 3;
-	// ft::vector<int>::iterator v6_it2 = v5.end() - 7;
-	// v6.assign(v6_it1, v6_it2);
-	// v6.assign(v5.begin() + 3, v5.end() - 7);
-	// print_vector(v6, 6);
-	// ft::vector<int>::allocator_type Allocator = v6.get_allocator();
-	// ft::vector<int> v66(Allocator);
+	ft::vector<int>::iterator v6_it1 = v5.begin() + 3;
+	ft::vector<int>::iterator v6_it2 = v5.end() - 7;
+	v6.assign(v6_it1, v6_it2);
+	v6.assign(v5.begin() + 3, v5.end() - 7);
+	print_vector(v6, 6);
+	ft::vector<int>::allocator_type Allocator = v6.get_allocator();
+	ft::vector<int> v66(Allocator);
 
-	// ft::vector<int>::iterator v6_it3 = v6.begin() + 3;
-	// v6.erase(v6_it3);
-	// print_vector(v6, 6);
+	ft::vector<int>::iterator v6_it3 = v6.begin() + 3;
+	v6.erase(v6_it3);
+	print_vector(v6, 6);
 
-	// ft::vector<int>::iterator v6_it4 = v6.begin() + 1;
-	// ft::vector<int>::iterator v6_it5 = v6.begin() + 6;
-	// v6.erase(v6_it4, v6_it5);
-	// print_vector(v6, 6);
+	ft::vector<int>::iterator v6_it4 = v6.begin() + 1;
+	ft::vector<int>::iterator v6_it5 = v6.begin() + 6;
+	v6.erase(v6_it4, v6_it5);
+	print_vector(v6, 6);
 
-	// ft::vector<int> v7((size_t)10, (int)99);
+	ft::vector<int> v7((size_t)10, (int)99);
 
-	// v7.at(3) = 42;
+	v7.at(3) = 42;
 
-	// try
-	// {
-	// 	v7.at(42) = 666;
-	// } catch (std::out_of_range const& exc) {
-	// 	std::cout << exc.what() << '\n';
-	// }
+	try
+	{
+		v7.at(42) = 666;
+	} catch (std::out_of_range const& exc) {
+		std::cout << exc.what() << '\n';
+	}
 
-	// v7[4] = 84;
-	// v7[2] = 84;
+	v7[4] = 84;
+	v7[2] = 84;
 
-	// print_vector(v7, 7);
+	print_vector(v7, 7);
 
-	// v7.push_back(66);
-	// v7.push_back(97);
-	// v7.push_back(62);
-	// v7.push_back(28);
-	// v7.push_back(66);
-	// v7.push_back(57);
-	// v7.push_back(12);
+	v7.push_back(66);
+	v7.push_back(97);
+	v7.push_back(62);
+	v7.push_back(28);
+	v7.push_back(66);
+	v7.push_back(57);
+	v7.push_back(12);
 
-	// ft::vector<int> v8 = v7;
-	// print_vector(v8, 8);
-	// v8.clear();
-	// print_vector(v8, 8);
+	ft::vector<int> v8 = v7;
+	print_vector(v8, 8);
+	v8.clear();
+	print_vector(v8, 8);
 
-	// v8.insert(v8.begin(), 42);
-	// v8.insert(v8.begin(), 41);
-	// v8.insert(v8.begin(), 40);
-	// v8.insert(v8.begin(), (size_t)5, 1);
-	// v8.insert(v8.begin(), (size_t)5, 0);
-	// v8.insert(v8.end(), v7.begin() + 2, v7.begin() + 4);
+	v8.insert(v8.begin(), 42);
+	v8.insert(v8.begin(), 41);
+	v8.insert(v8.begin(), 40);
+	v8.insert(v8.begin(), (size_t)5, 1);
+	v8.insert(v8.begin(), (size_t)5, 0);
+	v8.insert(v8.end(), v7.begin() + 2, v7.begin() + 4);
 
-	// print_vector(v8, 8);
+	print_vector(v8, 8);
 
-	// ft::vector<int>::iterator it1;
-	// ft::vector<int>::iterator it2;
-	// ft::vector<int>::iterator it3;
-	// ft::vector<int>::const_iterator it_const;
-	// ft::vector<int>::reverse_iterator it_r;
-	// ft::vector<int>::const_reverse_iterator it_rconst;
+	ft::vector<int>::iterator it1;
+	ft::vector<int>::iterator it2;
+	ft::vector<int>::iterator it3;
+	ft::vector<int>::const_iterator it_const;
+	ft::vector<int>::reverse_iterator it_r;
+	ft::vector<int>::const_reverse_iterator it_rconst;
 
-	// v1.reserve(12);
-	// v1.push_back( 0 );
-	// v1.push_back( 1 );
-	// v1.push_back( 2 );
-	// v1.push_back( 3 );
-	// v1.push_back( 4 );
-	// v1.push_back( 5 );
-	// v1.push_back( 6 );
-	// v1.push_back( 7 );
-	// v1.push_back( 8 );
-	// v1.push_back( 9 );
-	// v1.push_back( 10 );
-	// v1.push_back( 11 );
+	v1.reserve(12);
+	v1.push_back( 0 );
+	v1.push_back( 1 );
+	v1.push_back( 2 );
+	v1.push_back( 3 );
+	v1.push_back( 4 );
+	v1.push_back( 5 );
+	v1.push_back( 6 );
+	v1.push_back( 7 );
+	v1.push_back( 8 );
+	v1.push_back( 9 );
+	v1.push_back( 10 );
+	v1.push_back( 11 );
 
-	// print_vector(v1, 1);
+	print_vector(v1, 1);
 
-	// it1 = v1.begin();
-	// it2 = v1.begin() + 3;
-	// it3 = v1.end() - 1;
+	it1 = v1.begin();
+	it2 = v1.begin() + 3;
+	it3 = v1.end() - 1;
 
-	// std::cout << "it1 = v1.begin()" << std::endl;
-	// std::cout << "it2 = v1.begin() + 3" << std::endl;
-	// std::cout << "it3 = v1.end() - 2;" << std::endl;
-	// std::cout << std::endl;
+	std::cout << "it1 = v1.begin()" << std::endl;
+	std::cout << "it2 = v1.begin() + 3" << std::endl;
+	std::cout << "it3 = v1.end() - 2;" << std::endl;
+	std::cout << std::endl;
 
-	// std::cout << "*(it1): " << *(it1) << std::endl;
-	// std::cout << "(it2 - it1): " << (it2 - it1) << std::endl;
+	std::cout << "*(it1): " << *(it1) << std::endl;
+	std::cout << "(it2 - it1): " << (it2 - it1) << std::endl;
 
 
-	// std::cout << "*(it1 + 1): " << *(it1 + 1) << std::endl;
-	// std::cout << "*(1 + it1): " << *(1 + it1) << std::endl;
-	// std::cout << "*(it2 - 1): " << *(it2 - 1) << std::endl;
-	// std::cout << "*(-1 + it2): " << *(-1 + it2) << std::endl;
+	std::cout << "*(it1 + 1): " << *(it1 + 1) << std::endl;
+	std::cout << "*(1 + it1): " << *(1 + it1) << std::endl;
+	std::cout << "*(it2 - 1): " << *(it2 - 1) << std::endl;
+	std::cout << "*(-1 + it2): " << *(-1 + it2) << std::endl;
 
-	// std::cout << "*(it1++): " << *(it1++) << " -> " << *it1 << std::endl;
-	// std::cout << "*(it2++): " << *(it2++) << " -> " << *it2 << std::endl;
-	// std::cout << "*(++it1): " << *(++it1) << " -> " << *it1 << std::endl;
-	// std::cout << "*(++it2): " << *(++it2) << " -> " << *it2 << std::endl;
-	// std::cout << "*(it1--): " << *(it1--) << " -> " << *it1 << std::endl;
-	// std::cout << "*(it2--): " << *(it2--) << " -> " << *it2 << std::endl;
-	// std::cout << "*(--it1): " << *(--it1) << " -> " << *it1 << std::endl;
-	// std::cout << "*(--it2): " << *(--it2) << " -> " << *it2 << std::endl;
+	std::cout << "*(it1++): " << *(it1++) << " -> " << *it1 << std::endl;
+	std::cout << "*(it2++): " << *(it2++) << " -> " << *it2 << std::endl;
+	std::cout << "*(++it1): " << *(++it1) << " -> " << *it1 << std::endl;
+	std::cout << "*(++it2): " << *(++it2) << " -> " << *it2 << std::endl;
+	std::cout << "*(it1--): " << *(it1--) << " -> " << *it1 << std::endl;
+	std::cout << "*(it2--): " << *(it2--) << " -> " << *it2 << std::endl;
+	std::cout << "*(--it1): " << *(--it1) << " -> " << *it1 << std::endl;
+	std::cout << "*(--it2): " << *(--it2) << " -> " << *it2 << std::endl;
 
-	// std::cout << "*(it1 += 3): " << *it1 << " -> " << *(it1 += 3) << std::endl;
-	// std::cout << "*(it2 += 3): " << *it2 << " -> " << *(it2 += 3) << std::endl;
-	// std::cout << "*(it1 -= 1): " << *it1 << " -> " << *(it1 -= 1) << std::endl;
-	// std::cout << "*(it2 -= 1): " << *it2 << " -> " << *(it2 -= 1) << std::endl;
+	std::cout << "*(it1 += 3): " << *it1 << " -> " << *(it1 += 3) << std::endl;
+	std::cout << "*(it2 += 3): " << *it2 << " -> " << *(it2 += 3) << std::endl;
+	std::cout << "*(it1 -= 1): " << *it1 << " -> " << *(it1 -= 1) << std::endl;
+	std::cout << "*(it2 -= 1): " << *it2 << " -> " << *(it2 -= 1) << std::endl;
 
-	// ft::reverse_iterator<ft::vector<int>::iterator> it4( v1.rbegin() + 6 );
-	// ft::reverse_iterator<ft::vector<int>::iterator> it5( v1.rbegin() );
-	// std::cout << "*(it4): " << *(it4) << std::endl;
+	ft::reverse_iterator<ft::vector<int>::iterator> it4( v1.rbegin() + 6 );
+	ft::reverse_iterator<ft::vector<int>::iterator> it5( v1.rbegin() );
+	std::cout << "*(it4): " << *(it4) << std::endl;
 
-	// std::cout << "*(it4++): " << *(it4++) << " -> " << *it4 << std::endl;
-	// std::cout << "*(++it4): " << *(++it4) << " -> " << *it4 << std::endl;
-	// std::cout << "*(it4--): " << *(it4--) << " -> " << *it4 << std::endl;
-	// std::cout << "*(--it4): " << *(--it4) << " -> " << *it4 << std::endl;
+	std::cout << "*(it4++): " << *(it4++) << " -> " << *it4 << std::endl;
+	std::cout << "*(++it4): " << *(++it4) << " -> " << *it4 << std::endl;
+	std::cout << "*(it4--): " << *(it4--) << " -> " << *it4 << std::endl;
+	std::cout << "*(--it4): " << *(--it4) << " -> " << *it4 << std::endl;
 
-	// std::cout << "*(it4 + 3): " << *(it4 + 3) << std::endl;
-	// std::cout << "*(it4 - 3): " << *(it4 - 3) << std::endl;
-	// std::cout << "it4 - it5: " << it4 - it5 << std::endl;
+	std::cout << "*(it4 + 3): " << *(it4 + 3) << std::endl;
+	std::cout << "*(it4 - 3): " << *(it4 - 3) << std::endl;
+	std::cout << "it4 - it5: " << it4 - it5 << std::endl;
 
-	// it1 = v1.begin();
-	// it2 = v1.begin() + 3;
+	it1 = v1.begin();
+	it2 = v1.begin() + 3;
 
-	// ft::vector<int>::const_iterator cit1 = it1;
-	// ft::vector<int>::const_iterator cit2 = it2;
+	ft::vector<int>::const_iterator cit1 = it1;
+	ft::vector<int>::const_iterator cit2 = it2;
 
-	// std::cout << "*cit1: " << *cit1 << std::endl;
-	// std::cout << "*cit2: " << *cit2 << std::endl;
+	std::cout << "*cit1: " << *cit1 << std::endl;
+	std::cout << "*cit2: " << *cit2 << std::endl;
 
-	// // nope!
-	// //cit2 = 67;
+	// nope!
+	//cit2 = 67;
 
-	// // sure
-	// *it1 = 55;
+	// sure
+	*it1 = 55;
 
-	// print_vector(v1, 1);
-	// print_vector(v2, 2);
+	print_vector(v1, 1);
+	print_vector(v2, 2);
 
-	// std::cout << std::boolalpha << (v1 == v2) << std::endl;
-	// std::cout << std::boolalpha << (v1 != v2) << std::endl;
-	// std::cout << std::boolalpha << (v1 < v2) << std::endl;
-	// std::cout << std::boolalpha << (v1 > v2) << std::endl;
-	// std::cout << std::boolalpha << (v1 >= v2) << std::endl;
-	// std::cout << std::boolalpha << (v1 <= v2) << std::endl;
+	std::cout << std::boolalpha << (v1 == v2) << std::endl;
+	std::cout << std::boolalpha << (v1 != v2) << std::endl;
+	std::cout << std::boolalpha << (v1 < v2) << std::endl;
+	std::cout << std::boolalpha << (v1 > v2) << std::endl;
+	std::cout << std::boolalpha << (v1 >= v2) << std::endl;
+	std::cout << std::boolalpha << (v1 <= v2) << std::endl;
 
-	// v1.swap(v2);
+	v1.swap(v2);
 
-	// print_vector(v1, 1);
-	// print_vector(v2, 2);
+	print_vector(v1, 1);
+	print_vector(v2, 2);
 
-	// std::cout << std::endl;
-	// std::cout << std::endl;
+	std::cout << std::endl;
+	std::cout << std::endl;
 
-	// // stack 
-	// ft::stack<int> stack0;
-	// stack0.push(1);
-	// stack0.push(2);
-	// stack0.push(3);
-	// stack0.push(4);
-	// print_stack(stack0, 0);
+	// stack 
+	ft::stack<int> stack0;
+	stack0.push(1);
+	stack0.push(2);
+	stack0.push(3);
+	stack0.push(4);
+	print_stack(stack0, 0);
 
-	// ft::stack<int> stack1 = stack0;
-	// print_stack(stack1, 1);
+	ft::stack<int> stack1 = stack0;
+	print_stack(stack1, 1);
 
-	// ft::stack<int> stack2(stack1);
-	// print_stack(stack2, 2);
+	ft::stack<int> stack2(stack1);
+	print_stack(stack2, 2);
 
-	// stack1.pop();
+	stack1.pop();
 
-	// stack2.pop();
-	// stack2.pop();
+	stack2.pop();
+	stack2.pop();
 
-	// std::cout << stack0.top() << std::endl;
-	// std::cout << stack1.top() << std::endl;
-	// std::cout << stack2.top() << std::endl;
+	std::cout << stack0.top() << std::endl;
+	std::cout << stack1.top() << std::endl;
+	std::cout << stack2.top() << std::endl;
 
-	// stack2.pop();
-	// stack2.pop();
-	// std::cout << std::boolalpha << "Stack2 is empty: " << stack2.empty() << '\n';
-	// std::cout << std::boolalpha << "Stack0 is empty: " << stack0.empty() << '\n';
-	// std::cout << "Stack2 size: " << stack2.size() << '\n';
-	// std::cout << "Stack0 size: " << stack0.size() << '\n';
+	stack2.pop();
+	stack2.pop();
+	std::cout << std::boolalpha << "Stack2 is empty: " << stack2.empty() << '\n';
+	std::cout << std::boolalpha << "Stack0 is empty: " << stack0.empty() << '\n';
+	std::cout << "Stack2 size: " << stack2.size() << '\n';
+	std::cout << "Stack0 size: " << stack0.size() << '\n';
 
-	// std::cout << "1) " << std::boolalpha << (stack0 == stack1) << std::endl;
-	// std::cout << "2) " << std::boolalpha << (stack0 != stack1) << std::endl;
-	// std::cout << "3) " << std::boolalpha << (stack0 <  stack1) << std::endl;
-	// std::cout << "4) " << std::boolalpha << (stack0 >  stack1) << std::endl;
-	// std::cout << "5) " << std::boolalpha << (stack0 >= stack1) << std::endl;
-	// std::cout << "6) " << std::boolalpha << (stack0 <= stack1) << std::endl;
+	std::cout << "1) " << std::boolalpha << (stack0 == stack1) << std::endl;
+	std::cout << "2) " << std::boolalpha << (stack0 != stack1) << std::endl;
+	std::cout << "3) " << std::boolalpha << (stack0 <  stack1) << std::endl;
+	std::cout << "4) " << std::boolalpha << (stack0 >  stack1) << std::endl;
+	std::cout << "5) " << std::boolalpha << (stack0 >= stack1) << std::endl;
+	std::cout << "6) " << std::boolalpha << (stack0 <= stack1) << std::endl;
+
+
+
 
 	// map
 
@@ -463,9 +468,6 @@ int main() {
 
 	// std::cout << m2.at(22) << std::endl;
 
-
-
-
 	// std::cout << m1.empty() << std::endl;
 	// std::cout << m1.size() << std::endl;
 	// m1.printMap();
@@ -489,6 +491,8 @@ int main() {
 	// m2.printMap();
 	// std::cout << "size " << m1.size() << std::endl;
 	// m1.erase(80);
+
+
 
 	ft::map<std::string, int> m1;
 	std::cout << m1.empty() << std::endl;
@@ -529,22 +533,20 @@ int main() {
 	ft::map<std::string, int>::iterator mit01 = m3.begin();
 	ft::map<std::string, int>::iterator mit02 = m3.end();
 	mit02--;
-	// ft::map<std::string, int>::reverse_iterator rmit01 = m3.rbegin();
-	// ft::map<std::string, int>::reverse_iterator rmit02 = m3.rend();
-	// rmit02++;
+	ft::map<std::string, int>::reverse_iterator rmit01 = m3.rbegin();
+	ft::map<std::string, int>::reverse_iterator rmit02 = m3.rend();
+	rmit02++;
 	print_map(m3, "m3: ");
 
 	std::cout << "Begin --- Key: " << mit01->first << " | Value: " << mit01->second << std::endl;
 	std::cout << "End   --- Key: " << mit02->first << " | Value: " << mit02->second << std::endl;
-	// std::cout << "Reverse Begin --- Key: " << rmit01->first << " | Value: " << rmit01->second << std::endl;
-	// std::cout << "Reverse End   --- Key: " << rmit02->first << " | Value: " << rmit02->second << std::endl;
+	std::cout << "Reverse Begin --- Key: " << rmit01->first << " | Value: " << rmit01->second << std::endl;
+	std::cout << "Reverse End   --- Key: " << rmit02->first << " | Value: " << rmit02->second << std::endl;
 
 	ft::map<std::string, int> m4(mit01, mit02);
 	print_map(m4, "m4: ");
 	std::cout << "m4 size = " << m4.size() << std::endl;
 	std::cout << "m4 size = " << m4.max_size() << std::endl;
-
-	ft::map<std::string, int>::allocator_type mapalloc = m4.get_allocator();
 
 	ft::map<std::string, int> m5 = m4;
 

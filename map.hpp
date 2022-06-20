@@ -27,8 +27,8 @@ class map{
 		typedef typename allocator_type::const_pointer		const_pointer;
 		typedef ft::BST_iter<Key, T>						iterator;
 		typedef const ft::BST_iter<Key, T>					const_iterator;
-		typedef ft::reverse_iterator<iterator>				reverse_iterator;
-		typedef ft::reverse_iterator<const_iterator>		const_reverse_iterator;
+		typedef ft::reverse_BST_iter<Key, T>				reverse_iterator;
+		typedef const ft::reverse_BST_iter<Key, T>			const_reverse_iterator;
 
 	private:
 
@@ -125,18 +125,18 @@ class map{
 		}
 
 		reverse_iterator rbegin(){
-			return (reverse_iterator(iterator(_bst.rbegin())));
+			return (reverse_iterator(_bst.rbegin(), _bst.begin(), _bst.rbegin()));
 		}
 
 		const_reverse_iterator rbegin() const{
-			return (const_reverse_iterator(iterator(_bst.rbegin())));
+			return (const_reverse_iterator(_bst.rbegin(), _bst.begin(), _bst.rbegin()));
 		}
 
 		reverse_iterator rend(){
-			return (reverse_iterator(iterator(_bst.rend())));
+			return (reverse_iterator(NULL, _bst.begin(), _bst.rbegin()));
 		}
 		const_reverse_iterator rend() const{
-			return (const_reverse_iterator(iterator(_bst.rend())));
+			return (const_reverse_iterator(NULL, _bst.begin(), _bst.rbegin()));
 		}
 
 		bool empty() const {

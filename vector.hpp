@@ -33,7 +33,9 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 	public:
 
 		explicit vector( const allocator_type& alloc = allocator_type()) :
-		_vec(0), _limit(0), _size(0), _alloc(alloc){}
+		_limit(0), _size(0), _alloc(alloc){
+			_vec = _alloc.allocate(0);
+		}
 
 		explicit vector( size_type count, const value_type& value = value_type(),
 						const allocator_type& alloc = allocator_type()) :
@@ -259,10 +261,10 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 			}
 		}
 
-		void swap( vector& other ){
+		void swap( vector<T>& other ){
 			size_type	size = _size;
 			size_type	limit = _limit;
-			pointer	vec = _vec;
+			pointer		vec = _vec;
 
 			_size = other._size;
 			_limit = other._limit;
@@ -275,13 +277,13 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 
 		reference at( size_type pos ){
 			if (pos > _size - 1)
-				throw std::out_of_range("Index out of range");
+				throw std::out_of_range("vector");
 			return (_vec[pos]);
 		}
 
 		const_reference at( size_type pos ) const{
 			if (pos > _size - 1)
-				throw std::out_of_range("Index out of range");
+				throw std::out_of_range("vector");
 			return (_vec[pos]);
 		}
 
@@ -328,7 +330,6 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 		return !(lhs <= rhs);
 	}
 
-	//https://www.cplusplus.com/reference/vector/vector/swap-free/
 	template <class T, class Alloc> void swap (vector<T,Alloc>& x, vector<T,Alloc>& y){
 		x.swap(y);
 	}
