@@ -46,7 +46,7 @@ template<typename T, typename U>
 void	print_map(const ft::map<T, U>& m, std::string comment = "")
 {
 	std::cout << comment;
-	for (typename ft::map<T, U>::const_iterator it = m.cbegin(); it != m.cend(); it++)
+	for (typename ft::map<T, U>::const_iterator it = m.begin(); it != m.end(); it++)
 		std::cout << it->first << " = " << it->second << "; ";
 	std::cout << '\n';
 }
@@ -90,11 +90,12 @@ int main() {
 	time(&start);
 	srand(10);
 
-	ft::vector<std::string> vector_str;
-	ft::vector<int> vector_int;
-	ft::stack<Buffer, std::deque<Buffer> > stack_deq_buffer;
-	ft::vector<Buffer> vector_buffer;
-	ft::map<int, int> map_int;
+	// ft::vector<std::string> vector_str;
+	// ft::vector<int> vector_int;
+	// ft::stack<int> stack_int;
+	// ft::vector<Buffer> vector_buffer;
+	// ft::stack<Buffer, std::deque<Buffer> > stack_deq_buffer;
+	// ft::map<int, int> map_int;
 
 	// for (int i = 0; i < COUNT; i++)
 	// {
@@ -113,7 +114,7 @@ int main() {
 	// 	for (int i = 0; i < COUNT; i++)
 	// 	{
 	// 		const int idx = rand() % COUNT;
-	// 		(void)vector_buffer.at(idx);
+	// 		vector_buffer.at(idx);
 	// 		std::cerr << "Error: THIS VECTOR SHOULD BE EMPTY!!" <<std::endl;
 	// 	}
 	// }
@@ -121,7 +122,23 @@ int main() {
 	// {
 	// 	//NORMAL ! :P
 	// }
+	
+	// for (int i = 0; i < COUNT; ++i)
+	// {
+	// 	map_int.insert(ft::make_pair(rand(), rand()));
+	// }
 
+	// int sum = 0;
+	// for (int i = 0; i < 10000; i++)
+	// {
+	// 	int access = rand();
+	// 	sum += map_int[access];
+	// }
+	// std::cout << "should be constant with the same seed: " << sum << std::endl;
+
+	// {
+	// 	ft::map<int, int> copy = map_int;
+	// }
 	// MutantStack<char> iterable_stack;
 	// for (char letter = 'a'; letter <= 'z'; letter++)
 	// 	iterable_stack.push(letter);
@@ -623,24 +640,24 @@ int main() {
 			std::cout << (*mi1).first << std::endl;
 			mi1++;
 	}
-	// std::cout << "reverse_iterator" << std::endl;
-	// mrev2 = m1.rbegin();
-	// while (mrev2 != m1.rend())
-	// {
-	// 		std::cout << (*mrev2).first << std::endl;
-	// 		mrev2++;
-	// }
+	// // std::cout << "reverse_iterator" << std::endl;
+	// // mrev2 = m1.rbegin();
+	// // while (mrev2 != m1.rend())
+	// // {
+	// // 		std::cout << (*mrev2).first << std::endl;
+	// // 		mrev2++;
+	// // }
 	
-	// std::cout << "const_reverse_iterator" << std::endl;
-	// ft::map<std::string, int>::const_reverse_iterator mrev1;
-	// ft::map<std::string, int>::const_reverse_iterator mrev3;
-	// mrev1 = m1.rbegin();
-	// mrev3 = m1.rend();
-	// while (mrev1 != m1.rend())
-	// {
-	// 		std::cout << (*mrev1).first << std::endl;
-	// 		mrev1++;
-	// }
+	// // std::cout << "const_reverse_iterator" << std::endl;
+	// // ft::map<std::string, int>::const_reverse_iterator mrev1;
+	// // ft::map<std::string, int>::const_reverse_iterator mrev3;
+	// // mrev1 = m1.rbegin();
+	// // mrev3 = m1.rend();
+	// // while (mrev1 != m1.rend())
+	// // {
+	// // 		std::cout << (*mrev1).first << std::endl;
+	// // 		mrev1++;
+	// // }
 
 	
 

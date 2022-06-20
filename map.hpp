@@ -25,8 +25,8 @@ class map{
 		typedef const value_type&							const_reference;
 		typedef typename allocator_type::pointer			pointer;
 		typedef typename allocator_type::const_pointer		const_pointer;
-		typedef BST_iter<Key, T>							iterator;
-		typedef BST_iter<Key, T>							const_iterator;
+		typedef ft::BST_iter<Key, T>						iterator;
+		typedef const ft::BST_iter<Key, T>					const_iterator;
 		typedef ft::reverse_iterator<iterator>				reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>		const_reverse_iterator;
 
@@ -56,8 +56,8 @@ class map{
 			this->_alloc = other._alloc;
 			this->_comp = other._comp;
 
-			iterator tmp = other.cbegin();
-			for(;tmp != other.cend(); tmp++){
+			iterator tmp = other.begin();
+			for(;tmp != other.end(); tmp++){
 				this->_bst._insert(*tmp);
 			}
 			return *this;
@@ -112,7 +112,7 @@ class map{
 			return (iterator(_bst.begin(), _bst.begin(), _bst.rbegin()));
 		}
 
-		const_iterator cbegin() const {
+		const_iterator begin() const {
 			return (const_iterator(_bst.begin(), _bst.begin(), _bst.rbegin()));
 		}
 
@@ -120,7 +120,7 @@ class map{
 			return (iterator(NULL, _bst.begin(), _bst.rbegin()));
 		}
 
-		const_iterator cend() const{
+		const_iterator end() const{
 			return (const_iterator(NULL, _bst.begin(), _bst.rbegin()));
 		}
 
@@ -128,14 +128,14 @@ class map{
 			return (reverse_iterator(iterator(_bst.rbegin())));
 		}
 
-		const_reverse_iterator crbegin() const{
+		const_reverse_iterator rbegin() const{
 			return (const_reverse_iterator(iterator(_bst.rbegin())));
 		}
 
 		reverse_iterator rend(){
 			return (reverse_iterator(iterator(_bst.rend())));
 		}
-		const_reverse_iterator crend() const{
+		const_reverse_iterator rend() const{
 			return (const_reverse_iterator(iterator(_bst.rend())));
 		}
 
@@ -199,9 +199,15 @@ class map{
 
 		void swap( map& other ){
 			map<key_type, mapped_type, key_compare, allocator_type> tmp(other);
+			// std::cout << tmp.size() << std::endl;
+			// std::cout << this->size() << std::endl << std::endl;
 
-			other = *this;
-			*this = tmp;
+			*this = other;
+			other = tmp;
+
+			// std::cout << tmp.size() << std::endl;
+			// std::cout << this->size() << std::endl;
+			
 		}
 
 		size_type count( const key_type& key ) const{
@@ -219,7 +225,7 @@ class map{
 			if(res != NULL)
 				return res;
 			else 
-				return(const_iterator(cend()));
+				return(const_iterator(end()));
 		}
 
 		ft::pair<iterator,iterator> equal_range( const key_type& key ){
@@ -231,32 +237,32 @@ class map{
 		}
 
 		iterator lower_bound( const key_type& key ){
-			iterator it  = cbegin();
+			iterator it  = begin();
 
-			while (it != cend() && _comp(it->first, key))
+			while (it != end() && _comp(it->first, key))
 				++it;
 			return it;
 		}
 
 		const_iterator lower_bound( const key_type& key ) const{
-			const_iterator it  = cbegin();
+			const_iterator it  = begin();
 
-			while (it != cend() && _comp(it->first, key))
+			while (it != end() && _comp(it->first, key))
 				++it;
 			return it;
 		}
 
 		iterator upper_bound( const key_type& key ){
-			iterator it  = cbegin();
+			iterator it  = begin();
 
-			while (it != cend() && !_comp(key, it->first))
+			while (it != end() && !_comp(key, it->first))
 				++it;
 			return it;
 		}
 		const_iterator upper_bound( const key_type& key ) const{
-			const_iterator it  = cbegin();
+			const_iterator it  = begin();
 
-			while (it != cend() && !_comp(key, it->first))
+			while (it != end() && !_comp(key, it->first))
 				++it;
 			return it;
 		}
@@ -268,13 +274,19 @@ class map{
 		value_compare value_comp() const{
 			return (value_compare(_comp));
 		}
+
 };
+
+template< class Key, class T, class Compare, class Alloc >
+	void swap( ft::map<Key,T,Compare,Alloc>& lhs, ft::map<Key,T,Compare,Alloc>& rhs ){
+		lhs.swap(rhs);
+}
 
 template< class Key, class T, class Compare, class Alloc >
 bool operator==( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ){
 	if (lhs.size() != rhs.size())
 		return false;
-	return ft::equal(lhs.cbegin(), lhs.cend(), rhs.cbegin());
+	return ft::equal(lhs.begin(), lhs.end(), rhs.begin());
 }
 
 template< class Key, class T, class Compare, class Alloc >
@@ -284,7 +296,7 @@ bool operator!=( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Al
 
 template< class Key, class T, class Compare, class Alloc >
 bool operator<( const map<Key,T,Compare,Alloc>& lhs, const map<Key,T,Compare,Alloc>& rhs ){
-	return ft::lexicographical_compare(lhs.cbegin(), lhs.cend(), rhs.cbegin(), rhs.cend()); 
+	return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()); 
 }
 
 template< class Key, class T, class Compare, class Alloc >

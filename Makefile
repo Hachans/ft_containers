@@ -4,11 +4,13 @@ CC = c++
 
 FLAGS = -Wall -Werror -Wextra -std=c++98
 
-SRC = main.cpp
+SRC = ft.cpp
+SRC2 = std.cpp
 
-all: $(NAME)
+std: $(SRC2)
+	$(CC) $(FLAGS) $(SRC2) -o $(NAME)
 
-$(NAME): $(SRC)
+ft: $(SRC)
 	$(CC) $(FLAGS) $(SRC) -o $(NAME)
 
 clean:
