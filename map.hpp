@@ -47,19 +47,24 @@ class map{
 			const allocator_type& alloc = allocator_type()):
 			_bst(), _comp(comp), _alloc(alloc){
 			for(;first != last; first++)
-				this->_bst._insert(*first);
+				this->insert(*first);
 		}
 
-		map( const map& other ): _bst(other._bst), _comp(other._comp), _alloc(other._alloc){}
+		map( const map& other ): _comp(other._comp), _alloc(other._alloc){
+
+			const_iterator tmp = other.begin();
+			clear();
+			for(;tmp != other.end(); tmp++){
+				this->insert(*tmp);
+			}
+		}
 
 		map& operator=( const map& other ){
-			this->_alloc = other._alloc;
-			this->_comp = other._comp;
 
-			iterator tmp = other.begin();
-			for(;tmp != other.end(); tmp++){
-				this->_bst._insert(*tmp);
-			}
+			if(*this == other)
+				return *this;
+			clear();
+			insert(other.begin(), other.end());
 			return *this;
 		}
 
@@ -198,16 +203,18 @@ class map{
 		}
 
 		void swap( map& other ){
-			map<key_type, mapped_type, key_compare, allocator_type> tmp(other);
-			// std::cout << tmp.size() << std::endl;
-			// std::cout << this->size() << std::endl << std::endl;
+		BST<key_type, mapped_type>	tmp_bst = other._bst;
+		key_compare					tmp_comp = other._comp;
+		allocator_type				tmp_alloc = other._alloc;
+		
+		_bst = other._bst;
+		_comp = other._comp;
+		_alloc = other._alloc;
 
-			*this = other;
-			other = tmp;
+		other._bst = tmp_bst;
+		other._alloc = tmp_alloc;
+		other._comp = tmp_comp;
 
-			// std::cout << tmp.size() << std::endl;
-			// std::cout << this->size() << std::endl;
-			
 		}
 
 		size_type count( const key_type& key ) const{

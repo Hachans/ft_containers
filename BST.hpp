@@ -99,7 +99,6 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 			if(nd == _bst)
 				_bst = NULL;
 			_size--;
-
 		}
 
 		node* _findNode(const key_type& key) const{

@@ -276,13 +276,13 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 		}
 
 		reference at( size_type pos ){
-			if (pos > _size - 1)
+			if (pos >= _size)
 				throw std::out_of_range("vector");
 			return (_vec[pos]);
 		}
 
 		const_reference at( size_type pos ) const{
-			if (pos > _size - 1)
+			if (pos >= _size)
 				throw std::out_of_range("vector");
 			return (_vec[pos]);
 		}
