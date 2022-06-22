@@ -55,9 +55,9 @@ class BST_iter : public std::iterator<std::bidirectional_iterator_tag, T>
 		BST_iter& operator++(){
 			if(!_p)
 				_p = _first;
-			if(_p->right != NULL){
+			else if(_p->right != NULL){
 				_p = _p->right;
-				while(_p->left && _p->left != NULL)
+				while(_p->left != NULL)
 					_p = _p->left;
 			}
 			else{
@@ -74,9 +74,9 @@ class BST_iter : public std::iterator<std::bidirectional_iterator_tag, T>
 		const BST_iter& operator++() const{
 			if(!_p)
 				_p = _first;
-			if(_p->right != NULL){
+			else if(_p->right != NULL){
 				_p = _p->right;
-				while(_p->left && _p->left != NULL)
+				while(_p->left != NULL)
 					_p = _p->left;
 			}
 			else{
@@ -105,9 +105,9 @@ class BST_iter : public std::iterator<std::bidirectional_iterator_tag, T>
 		BST_iter& operator--(){
 			if(!_p)
 				_p = _last;
-			if(_p->left != NULL){
+			else if(_p->left != NULL){
 				_p = _p->left;
-				while(_p->right && _p->right != NULL)
+				while(_p->right != NULL)
 					_p = _p->right;
 			}
 			else{
@@ -124,9 +124,9 @@ class BST_iter : public std::iterator<std::bidirectional_iterator_tag, T>
 		const BST_iter& operator--() const{
 			if(!_p)
 				_p = _last;
-			if(_p->left != NULL){
+			else if(_p->left != NULL){
 				_p = _p->left;
-				while(_p->right && _p->right != NULL)
+				while(_p->right != NULL)
 					_p = _p->right;
 			}
 			else{
@@ -225,9 +225,9 @@ class reverse_BST_iter : public std::iterator<std::bidirectional_iterator_tag, T
 		reverse_BST_iter& operator--(){
 			if(!_p)
 				_p = _first;
-			if(_p->right != NULL){
+			else if(_p->right != NULL){
 				_p = _p->right;
-				while(_p->left && _p->left != NULL)
+				while(_p->left != NULL)
 					_p = _p->left;
 			}
 			else{
@@ -244,9 +244,9 @@ class reverse_BST_iter : public std::iterator<std::bidirectional_iterator_tag, T
 		const reverse_BST_iter& operator--() const{
 			if(!_p)
 				_p = _first;
-			if(_p->right != NULL){
+			else if(_p->right != NULL){
 				_p = _p->right;
-				while(_p->left && _p->left != NULL)
+				while(_p->left != NULL)
 					_p = _p->left;
 			}
 			else{
@@ -275,9 +275,9 @@ class reverse_BST_iter : public std::iterator<std::bidirectional_iterator_tag, T
 		reverse_BST_iter& operator++(){
 			if(!_p)
 				_p = _last;
-			if(_p->left != NULL){
+			else if(_p->left != NULL){
 				_p = _p->left;
-				while(_p->right && _p->right != NULL)
+				while(_p->right != NULL)
 					_p = _p->right;
 			}
 			else{
@@ -294,9 +294,9 @@ class reverse_BST_iter : public std::iterator<std::bidirectional_iterator_tag, T
 		const reverse_BST_iter& operator++() const{
 			if(!_p)
 				_p = _last;
-			if(_p->left != NULL){
+			else if(_p->left != NULL){
 				_p = _p->left;
-				while(_p->right && _p->right != NULL)
+				while(_p->right != NULL)
 					_p = _p->right;
 			}
 			else{

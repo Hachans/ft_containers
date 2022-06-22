@@ -68,6 +68,10 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 			return(new_node);
 		}
 
+		size_type max_size() const{
+			return(this->_alloc.max_size());
+		}
+
 		node* getRoot() const{
 			return this->_bst;
 		}

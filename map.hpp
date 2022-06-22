@@ -153,7 +153,8 @@ class map{
 		}
 
 		size_type max_size() const{
-			return (std::numeric_limits<difference_type>::max());
+
+			return (_bst.max_size());
 		}
 
 		void clear(){
@@ -194,8 +195,10 @@ class map{
 		}
 
 		void erase( iterator first, iterator last ){
-			for(; first != last; first++)
-				_bst._erase((*first).first);
+			for(; first != last; first++){
+				key_type key = (*first).first;
+				erase(key);
+			}
 		}
 
 		size_type erase( const key_type& key ){
@@ -203,9 +206,9 @@ class map{
 		}
 
 		void swap( map& other ){
-		BST<key_type, mapped_type>	tmp_bst = other._bst;
-		key_compare					tmp_comp = other._comp;
-		allocator_type				tmp_alloc = other._alloc;
+		BST<key_type, mapped_type>	tmp_bst = _bst;
+		key_compare					tmp_comp = _comp;
+		allocator_type				tmp_alloc = _alloc;
 		
 		_bst = other._bst;
 		_comp = other._comp;

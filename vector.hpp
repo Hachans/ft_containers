@@ -3,6 +3,7 @@
 
 #include "VectorIter.hpp"
 #include "Utils.hpp"
+#include <bits/functexcept.h>
 
 
 namespace ft{
@@ -147,7 +148,7 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 		}
 
 		size_type max_size() const {
-			return (std::numeric_limits<difference_type>::max());
+			return (_alloc.max_size());
 		}
 
 		void reserve( size_type new_cap ){
@@ -277,7 +278,10 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 
 		reference at( size_type pos ){
 			if (pos >= _size)
-				throw std::out_of_range("vector");
+				std::__throw_out_of_range_fmt(__N("vector::_M_range_check: __n "
+				       "(which is %zu) >= this->size() "
+				       "(which is %zu)"),
+				   pos, this->size());
 			return (_vec[pos]);
 		}
 
