@@ -34,15 +34,15 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 
 	private:
 
-		node 			*_bst;
 		size_type		_size;
 		allocator_type	_alloc;
 		std::allocator<node> _node_alloc;
 
 	public:
+		node 		*_bst;
 		key_compare	_comp;
 
-		BST(): _bst(NULL), _size(0){}
+		BST():  _size(0),_bst(NULL){}
 
 		BST& operator=(const BST& other){
 			_bst = other._bst;
@@ -56,16 +56,30 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 
 		size_type size() const{ return this->_size; }
 
-		node *_new_node(const value_type &value, node* left = NULL, node* right = NULL, node* parent = NULL){
+		node *_new_node(const value_type &value, node* parent = NULL){
 			
 			node *new_node = _node_alloc.allocate(1);
 
 			_alloc.construct(&(new_node->data), value);
-			new_node->left = left;
-			new_node->right = right;
+			new_node->left = NULL;
+			new_node->right = NULL;
 			new_node->parent = parent;
 			_size++;
 			return(new_node);
+		}
+
+		node* copyTree(node* rt = NULL){
+			if(!rt)
+				return NULL;
+			node* nd = NULL;
+			if(nd == _bst)
+				nd = _new_node(ft::pair<key_type, mapped_type>(rt->data.first, rt->data.second));
+			else
+				nd = _new_node(ft::pair<key_type, mapped_type>(rt->data.first, rt->data.second), rt);
+
+			nd->left = copyTree(rt->left);
+			nd->right = copyTree(rt->right);
+			return nd;
 		}
 
 		size_type max_size() const{
@@ -74,6 +88,13 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 
 		node* getRoot() const{
 			return this->_bst;
+		}
+
+		node* getToRoot() const{
+			node* tmp = _bst;
+			while(tmp->parent)
+				tmp = tmp->parent;
+			return tmp;
 		}
 
 		bool _isLeaf(node *bst) const{
@@ -120,13 +141,12 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 		}
 
 		node* _insert(const value_type& value){
-			node* found;
-			node* tmp;
-		
 			if(!_bst){
 				_bst = _new_node(value);
 				return _bst;
 			}
+			node* found;
+			node* tmp;
 			found = _findNode(value.first);
 			if(found)
 				return found;
@@ -139,7 +159,7 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 				else
 					found = found->right;
 			}
-			found = _new_node(value, NULL, NULL, tmp);
+			found = _new_node(value, tmp);
 			if(value.first < tmp->data.first)
 				tmp->left = found;
 			else

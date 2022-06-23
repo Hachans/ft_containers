@@ -46,21 +46,29 @@ class map{
 		map( InputIt first, InputIt last, const key_compare& comp = key_compare(),
 			const allocator_type& alloc = allocator_type()):
 			_bst(), _comp(comp), _alloc(alloc){
-			for(;first != last; first++)
-				this->insert(*first);
+			for(;first != last; first++){
+				this->_bst._insert(*first);}
 		}
 
 		map( const map& other ): _comp(other._comp), _alloc(other._alloc){
-
+			if(other._bst.size() > 200){
+				clear();
+				_bst._bst = _bst.copyTree(other._bst.getToRoot());
+			}
+			else{
 			const_iterator tmp = other.begin();
 			clear();
 			for(;tmp != other.end(); tmp++){
 				this->insert(*tmp);
 			}
+			}
 		}
+
+		~map(){this->clear();}
 
 		map& operator=( const map& other ){
 
+			
 			if(*this == other)
 				return *this;
 			clear();

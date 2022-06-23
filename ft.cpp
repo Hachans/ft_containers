@@ -85,10 +85,18 @@ public:
 	iterator end() { return this->c.end(); }
 };
 
-int main() {
+int main(int argc, char** argv) {
+	if (argc != 2)
+	{
+		std::cerr << "Usage: ./test seed" << std::endl;
+		std::cerr << "Provide a seed please" << std::endl;
+		std::cerr << "Count value:" << COUNT << std::endl;
+		return 1;
+	}
+	const int seed = atoi(argv[1]);
 	time_t	start, end;
 	time(&start);
-	srand(10);
+	srand(seed);
 
 	ft::vector<std::string> vector_str;
 	ft::vector<int> vector_int;
@@ -492,174 +500,189 @@ int main() {
 	// // std::cout << "size " << m1.size() << std::endl;
 	// // m1.erase(80);
 
+
+
 	// ft::map<std::string, int> m1;
-	// std::cout << m1.empty() << std::endl;
 
 	// m1["CPU"] = 10;
 	// m1["GPU"] = 15;
 	// m1["RAM"] = 20;
-
-	// std::cout << m1.empty() << std::endl;
-
-	// print_map(m1, "Initial map: ");
-
-	// m1["CPU"] = 25;
-	// m1["SSD"] = 30;
-	// print_map(m1, "Updated map: ");
-
-	// std::cout << "m1[UPS] = " << m1["UPS"] << '\n';
-	// print_map(m1, "Updated map: ");
-
-	// m1.erase("GPU");
-	// print_map(m1, "After erase: ");
-
-	// std::cout << "m.size() = " << m1.size() << '\n';
 
 	// ft::map<std::string, int> m2 = m1;
-	// print_map(m2, "Copy constructed map: ");
-
-	// std::cout << std::boolalpha << "m1 and m2 are equivalent: " << (m1 == m2) << '\n';
-	// m2["PSU"] = 34;
-	// m2["sPeripherals"] = 12;
-	// print_map(m2, "Updated map: ");
-	// std::cout << std::boolalpha << "m1 and m2 are equivalent: " << (m1 == m2) << '\n';
-
-	// m1.swap(m2);
-	// print_map(m2, "Swapped map: ");
-
-	// ft::map<std::string, int> m3(m1);
-	// ft::map<std::string, int>::iterator mit01 = m3.begin();
-	// ft::map<std::string, int>::iterator mit02 = m3.end();
-	// mit02--;
-	// ft::map<std::string, int>::reverse_iterator rmit01 = m3.rbegin();
-	// ft::map<std::string, int>::reverse_iterator rmit02 = m3.rend();
-	// rmit02++;
-	// print_map(m3, "m3: ");
-
-	// std::cout << "Begin --- Key: " << mit01->first << " | Value: " << mit01->second << std::endl;
-	// std::cout << "End   --- Key: " << mit02->first << " | Value: " << mit02->second << std::endl;
-	// std::cout << "Reverse Begin --- Key: " << rmit01->first << " | Value: " << rmit01->second << std::endl;
-	// std::cout << "Reverse End   --- Key: " << rmit02->first << " | Value: " << rmit02->second << std::endl;
-
-	// ft::map<std::string, int> m4(mit01, mit02);
-	// print_map(m4, "m4: ");
-	// std::cout << "m4 size = " << m4.size() << std::endl;
-	// std::cout << "m4 size = " << m4.max_size() << std::endl;
-
-	// ft::map<std::string, int> m5 = m4;
-
-	// m2["Mousepad"] = 5;
-	// m5.insert(m2.begin(), m2.end());
-	// print_map(m2, "m2: ");
-	// print_map(m5, "m5: ");
-
-	// ft::map<std::string, int> m6 = m5;
-	// m6.erase(m6.begin());
-	// print_map(m6, "m6: ");
-	// print_map(m2, "m2: ");
+	// print_map(m2, "m2 map: ");
 
 
-	// std::cout << "M6 size is " << m6.size() << std::endl;
-	// m6.clear();
 
-	// print_map(m6, "cleared: m6: ");
 
-	// m6.swap(m5);
-	// print_map(m6, "m6: ");
-	// print_map(m5, "swapped with m5: ");
+	ft::map<std::string, int> m1;
+	std::cout << m1.empty() << std::endl;
 
-	// std::cout << m5.count("RAM") << std::endl;
-	// std::cout << m5.count("HDD") << std::endl;
+	m1["CPU"] = 10;
+	m1["GPU"] = 15;
+	m1["RAM"] = 20;
 
-	// if (m5.find("RAM") == m5.end())
-	// 	std::cout << "RAM not found" << std::endl;
-	// if (m5.find("UPS") == m5.end())
-	// 	std::cout << "UPS not found" << std::endl;
-	// print_map(m5, "m5: ");
-	// ft::pair<ft::map<std::string, int>::iterator, ft::map<std::string, int>::iterator> range00 = m6.equal_range("PSU");
+	std::cout << m1.empty() << std::endl;
 
-	// std::cout << range00.first->first << " ==== " << range00.first->second << std::endl;
-	// std::cout << range00.second->first << " === " << range00.second->second << std::endl;
-	// std::cout << (*m6.lower_bound("PSU")).first << " = " << (*m6.lower_bound("PSU")).second << std::endl;
-	// std::cout << (*m6.upper_bound("PSU")).first << " = " << (*m6.upper_bound("PSU")).second << std::endl;
-	// std::cout << "1) " << std::boolalpha << (m3 == m5) << std::endl;
-	// std::cout << "2) " << std::boolalpha << (m3 != m5) << std::endl;
-	// std::cout << "3) " << std::boolalpha << (m3 <  m5) << std::endl;
-	// std::cout << "4) " << std::boolalpha << (m3 >  m5) << std::endl;
-	// std::cout << "5) " << std::boolalpha << (m3 >= m5) << std::endl;
-	// std::cout << "6) " << std::boolalpha << (m3 <= m5) << std::endl;
+	print_map(m1, "Initial map: ");
 
-	// ft::map<std::string, int>::key_compare key_comp_map = m1.key_comp();
-	// ft::map<std::string, int>::value_compare val_comp_map = m1.value_comp();
+	m1["CPU"] = 25;
+	m1["SSD"] = 30;
+	print_map(m1, "Updated map: ");
 
-	// std::cout << std::boolalpha << "Python is lexicographically less than C: " << key_comp_map("Python", "C") << '\n';
-	// std::cout << (std::string("Python") < std::string("C")) << '\n';
+	std::cout << "m1[UPS] = " << m1["UPS"] << '\n';
+	print_map(m1, "Updated map: ");
 
-	// ft::map<std::string, int>::value_type value1_map = ft::make_pair("C", 2);
-	// ft::map<std::string, int>::value_type value2_map = ft::make_pair("C++", 7);
+	m1.erase("GPU");
+	print_map(m1, "After erase: ");
 
-	// std::cout << std::boolalpha << "C is lexicographically less than C++: " << val_comp_map(value1_map, value2_map) << '\n';
-	// std::cout << "C comp C++ : " << (std::string("C") < std::string("C++")) << '\n';
+	std::cout << "m.size() = " << m1.size() << '\n';
 
-	// ft::map<std::string, int>::iterator it01 = m1.find("SSD");
-	// (void)it01;
-	// std::cout << "Key \"SSD\" is in the map: " << m1.count("SSD") << '\n';
-	// std::cout << "Key \"Stereo\" is in the map: " << m1.count("Stereo") << '\n';
-	// m1.clear();
-	// std::cout << std::boolalpha << "Map is empty: " << m1.empty() << '\n';
+	ft::map<std::string, int> m2 = m1;
+	print_map(m2, "Copy constructed map: ");
 
-	// ft::map<std::string, int>::reverse_iterator mrev2;
-	// ft::map<std::string, int>::const_iterator mci1;
-	// ft::map<std::string, int>::iterator mi1;
+	std::cout << std::boolalpha << "m1 and m2 are equivalent: " << (m1 == m2) << '\n';
+	m2["PSU"] = 34;
+	m2["sPeripherals"] = 12;
+	print_map(m2, "Updated map: ");
+	std::cout << std::boolalpha << "m1 and m2 are equivalent: " << (m1 == m2) << '\n';
 
-	// std::cout << m1.empty() << std::endl;
+	m1.swap(m2);
+	print_map(m2, "Swapped map: ");
 
-	// m1["CPU"] = 10;
-	// m1["GPU"] = 15;
-	// m1["RAM"] = 20;
+	ft::map<std::string, int> m3(m1);
+	ft::map<std::string, int>::iterator mit01 = m3.begin();
+	ft::map<std::string, int>::iterator mit02 = m3.end();
+	mit02--;
+	ft::map<std::string, int>::reverse_iterator rmit01 = m3.rbegin();
+	ft::map<std::string, int>::reverse_iterator rmit02 = m3.rend();
+	rmit02++;
+	print_map(m3, "m3: ");
 
-	// std::cout << m1.empty() << std::endl;
+	std::cout << "Begin --- Key: " << mit01->first << " | Value: " << mit01->second << std::endl;
+	std::cout << "End   --- Key: " << mit02->first << " | Value: " << mit02->second << std::endl;
+	std::cout << "Reverse Begin --- Key: " << rmit01->first << " | Value: " << rmit01->second << std::endl;
+	std::cout << "Reverse End   --- Key: " << rmit02->first << " | Value: " << rmit02->second << std::endl;
 
-	// print_map(m1, "Initial map: ");
-
-	// m1["CPU"] = 25;
-	// m1["SSD"] = 30;
-	// print_map(m1, "Updated map: ");
-
-	// std::cout << "m1[UPS] = " << m1["UPS"] << '\n';
-	// print_map(m1, "Updated map: ");
-	// mci1 = m1.begin();
-	// std::cout << "const iterator" << std::endl;
-	// while (mci1 != m1.end())
-	// {
-	// 	std::cout << (*mci1).first << std::endl;
-	// 	mci1++;
-	// }
-	// std::cout << "iterator" << std::endl;
-	// mi1 = m1.begin();
-	// while (mi1 != m1.end())
-	// {
-	// 	std::cout << (*mi1).first << std::endl;
-	// 	mi1++;
-	// }
-	// std::cout << "reverse_iterator" << std::endl;
-	// mrev2 = m1.rbegin();
-	// while (mrev2 != m1.rend())
-	// {
-	// 	std::cout << (*mrev2).first << std::endl;
-	// 	mrev2++;
-	// }
+	ft::map<std::string, int> m4(mit01, mit02);
 	
-	// std::cout << "const_reverse_iterator" << std::endl;
-	// ft::map<std::string, int>::const_reverse_iterator mrev1;
-	// ft::map<std::string, int>::const_reverse_iterator mrev3;
-	// mrev1 = m1.rbegin();
-	// mrev3 = m1.rend();
-	// while (mrev1 != m1.rend())
-	// {
-	// 		std::cout << (*mrev1).first << std::endl;
-	// 		mrev1++;
-	// }
+	print_map(m4, "m4: ");
+	std::cout << "m4 size = " << m4.size() << std::endl;
+	std::cout << "m4 size = " << m4.max_size() << std::endl;
+
+	ft::map<std::string, int> m5 = m4;
+
+	m2["Mousepad"] = 5;
+	m5.insert(m2.begin(), m2.end());
+	print_map(m2, "m2: ");
+	print_map(m5, "m5: ");
+
+	ft::map<std::string, int> m6 = m5;
+	m6.erase(m6.begin());
+	print_map(m6, "m6: ");
+	print_map(m2, "m2: ");
+
+
+	std::cout << "M6 size is " << m6.size() << std::endl;
+	m6.clear();
+
+	print_map(m6, "cleared: m6: ");
+
+	m6.swap(m5);
+	print_map(m6, "m6: ");
+	print_map(m5, "swapped with m5: ");
+
+	std::cout << m5.count("RAM") << std::endl;
+	std::cout << m5.count("HDD") << std::endl;
+
+	if (m5.find("RAM") == m5.end())
+		std::cout << "RAM not found" << std::endl;
+	if (m5.find("UPS") == m5.end())
+		std::cout << "UPS not found" << std::endl;
+	print_map(m5, "m5: ");
+	ft::pair<ft::map<std::string, int>::iterator, ft::map<std::string, int>::iterator> range00 = m6.equal_range("PSU");
+
+	std::cout << range00.first->first << " ==== " << range00.first->second << std::endl;
+	std::cout << range00.second->first << " === " << range00.second->second << std::endl;
+	std::cout << (*m6.lower_bound("PSU")).first << " = " << (*m6.lower_bound("PSU")).second << std::endl;
+	std::cout << (*m6.upper_bound("PSU")).first << " = " << (*m6.upper_bound("PSU")).second << std::endl;
+	std::cout << "1) " << std::boolalpha << (m3 == m5) << std::endl;
+	std::cout << "2) " << std::boolalpha << (m3 != m5) << std::endl;
+	std::cout << "3) " << std::boolalpha << (m3 <  m5) << std::endl;
+	std::cout << "4) " << std::boolalpha << (m3 >  m5) << std::endl;
+	std::cout << "5) " << std::boolalpha << (m3 >= m5) << std::endl;
+	std::cout << "6) " << std::boolalpha << (m3 <= m5) << std::endl;
+
+	ft::map<std::string, int>::key_compare key_comp_map = m1.key_comp();
+	ft::map<std::string, int>::value_compare val_comp_map = m1.value_comp();
+
+	std::cout << std::boolalpha << "Python is lexicographically less than C: " << key_comp_map("Python", "C") << '\n';
+	std::cout << (std::string("Python") < std::string("C")) << '\n';
+
+	ft::map<std::string, int>::value_type value1_map = ft::make_pair("C", 2);
+	ft::map<std::string, int>::value_type value2_map = ft::make_pair("C++", 7);
+
+	std::cout << std::boolalpha << "C is lexicographically less than C++: " << val_comp_map(value1_map, value2_map) << '\n';
+	std::cout << "C comp C++ : " << (std::string("C") < std::string("C++")) << '\n';
+
+	ft::map<std::string, int>::iterator it01 = m1.find("SSD");
+	(void)it01;
+	std::cout << "Key \"SSD\" is in the map: " << m1.count("SSD") << '\n';
+	std::cout << "Key \"Stereo\" is in the map: " << m1.count("Stereo") << '\n';
+	m1.clear();
+	std::cout << std::boolalpha << "Map is empty: " << m1.empty() << '\n';
+
+	ft::map<std::string, int>::reverse_iterator mrev2;
+	ft::map<std::string, int>::const_iterator mci1;
+	ft::map<std::string, int>::iterator mi1;
+
+	std::cout << m1.empty() << std::endl;
+
+	m1["CPU"] = 10;
+	m1["GPU"] = 15;
+	m1["RAM"] = 20;
+
+	std::cout << m1.empty() << std::endl;
+
+	print_map(m1, "Initial map: ");
+
+	m1["CPU"] = 25;
+	m1["SSD"] = 30;
+	print_map(m1, "Updated map: ");
+
+	std::cout << "m1[UPS] = " << m1["UPS"] << '\n';
+	print_map(m1, "Updated map: ");
+	mci1 = m1.begin();
+	std::cout << "const iterator" << std::endl;
+	while (mci1 != m1.end())
+	{
+		std::cout << (*mci1).first << std::endl;
+		mci1++;
+	}
+	std::cout << "iterator" << std::endl;
+	mi1 = m1.begin();
+	while (mi1 != m1.end())
+	{
+		std::cout << (*mi1).first << std::endl;
+		mi1++;
+	}
+	std::cout << "reverse_iterator" << std::endl;
+	mrev2 = m1.rbegin();
+	while (mrev2 != m1.rend())
+	{
+		std::cout << (*mrev2).first << std::endl;
+		mrev2++;
+	}
+	
+	std::cout << "const_reverse_iterator" << std::endl;
+	ft::map<std::string, int>::const_reverse_iterator mrev1;
+	ft::map<std::string, int>::const_reverse_iterator mrev3;
+	mrev1 = m1.rbegin();
+	mrev3 = m1.rend();
+	while (mrev1 != m1.rend())
+	{
+			std::cout << (*mrev1).first << std::endl;
+			mrev1++;
+	}
 
 	time(&end);
 	double diff = difftime(end, start);
