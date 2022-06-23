@@ -51,18 +51,16 @@ class map{
 		}
 
 		map( const map& other ): _comp(other._comp), _alloc(other._alloc){
-			if(other._bst.size() > 200){
-				clear();
-				_bst._bst = _bst.copyTree(other._bst.getToRoot());
-			}
-			else{
+			// if(other._bst.size() > 200){
+			// 	clear();
+			// 	_bst._bst = _bst.copyTree(other._bst.getToRoot());
+			// }
+			// else{
 			const_iterator tmp = other.begin();
 			clear();
-			for(;tmp != other.end(); tmp++){
+			for(;tmp != other.end(); tmp++)
 				this->insert(*tmp);
 			}
-			}
-		}
 
 		~map(){this->clear();}
 

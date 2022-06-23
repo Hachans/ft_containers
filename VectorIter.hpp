@@ -25,6 +25,8 @@ template < typename T > class VecIter : public ft::iterator<std::random_access_i
 		VecIter(pointer n): _p(n){}
 		~VecIter(){}
 
+		T* base() const{return this->_p;}
+
 		reference operator*( void ) {
 			return *_p;
 		}
@@ -93,11 +95,6 @@ template < typename T > class VecIter : public ft::iterator<std::random_access_i
 			return _p + rhs._p;
 		}
 
-		template< typename Iter >
-		friend VecIter<Iter> operator+( typename VecIter<Iter>::difference_type n, const VecIter<Iter>& it ){
-			return VecIter<Iter>(it._p + n);
-		}
-
 		VecIter& operator+=(difference_type n) {
 			_p += n;
 			return *this;
@@ -158,6 +155,11 @@ template < typename T > class VecIter : public ft::iterator<std::random_access_i
 			return(_p < other._p);
 		}
 };
+
+template< typename Iter >
+VecIter<Iter> operator+( typename VecIter<Iter>::difference_type n, const VecIter<Iter>& it ){
+	return VecIter<Iter>(it.base() + n);
+}
 
 } //end namepsace
 

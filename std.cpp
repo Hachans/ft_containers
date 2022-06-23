@@ -98,63 +98,63 @@ int main(int argc, char** argv) {
 	time(&start);
 	srand(seed);
 
-	// ft::vector<std::string> vector_str;
-	// ft::vector<int> vector_int;
-	// ft::stack<int> stack_int;
-	// ft::vector<Buffer> vector_buffer;
-	// ft::stack<Buffer, std::deque<Buffer> > stack_deq_buffer;
-	// ft::map<int, int> map_int;
+	ft::vector<std::string> vector_str;
+	ft::vector<int> vector_int;
+	ft::stack<int> stack_int;
+	ft::vector<Buffer> vector_buffer;
+	ft::stack<Buffer, std::deque<Buffer> > stack_deq_buffer;
+	ft::map<int, int> map_int;
 
-	// for (int i = 0; i < COUNT; i++)
-	// {
-	// 	vector_buffer.push_back(Buffer());
-	// }
+	for (int i = 0; i < COUNT; i++)
+	{
+		vector_buffer.push_back(Buffer());
+	}
 
-	// for (int i = 0; i < COUNT; i++)
-	// {
-	// 	const int idx = rand() % COUNT;
-	// 	vector_buffer[idx].idx = 5;
-	// }
-	// ft::vector<Buffer>().swap(vector_buffer);
+	for (int i = 0; i < COUNT; i++)
+	{
+		const int idx = rand() % COUNT;
+		vector_buffer[idx].idx = 5;
+	}
+	ft::vector<Buffer>().swap(vector_buffer);
 
-	// try
-	// {
-	// 	for (int i = 0; i < COUNT; i++)
-	// 	{
-	// 		const int idx = rand() % COUNT;
-	// 		vector_buffer.at(idx);
-	// 		std::cerr << "Error: THIS VECTOR SHOULD BE EMPTY!!" <<std::endl;
-	// 	}
-	// }
-	// catch(const std::exception& e)
-	// {
-	// 	//NORMAL ! :P
-	// }
+	try
+	{
+		for (int i = 0; i < COUNT; i++)
+		{
+			const int idx = rand() % COUNT;
+			vector_buffer.at(idx);
+			std::cerr << "Error: THIS VECTOR SHOULD BE EMPTY!!" <<std::endl;
+		}
+	}
+	catch(const std::exception& e)
+	{
+		//NORMAL ! :P
+	}
 	
-	// for (int i = 0; i < COUNT; ++i)
-	// {
-	// 	map_int.insert(ft::make_pair(rand(), rand()));
-	// }
+	for (int i = 0; i < COUNT; ++i)
+	{
+		map_int.insert(ft::make_pair(rand(), rand()));
+	}
 
-	// int sum = 0;
-	// for (int i = 0; i < 10000; i++)
-	// {
-	// 	int access = rand();
-	// 	sum += map_int[access];
-	// }
-	// std::cout << "should be constant with the same seed: " << sum << std::endl;
+	int sum = 0;
+	for (int i = 0; i < 10000; i++)
+	{
+		int access = rand();
+		sum += map_int[access];
+	}
+	std::cout << "should be constant with the same seed: " << sum << std::endl;
 
-	// {
-	// 	ft::map<int, int> copy = map_int;
-	// }
-	// MutantStack<char> iterable_stack;
-	// for (char letter = 'a'; letter <= 'z'; letter++)
-	// 	iterable_stack.push(letter);
-	// for (MutantStack<char>::iterator it = iterable_stack.begin(); it != iterable_stack.end(); it++)
-	// {
-	// 	std::cout << *it;
-	// }
-	// std::cout << std::endl;
+	{
+		ft::map<int, int> copy = map_int;
+	}
+	MutantStack<char> iterable_stack;
+	for (char letter = 'a'; letter <= 'z'; letter++)
+		iterable_stack.push(letter);
+	for (MutantStack<char>::iterator it = iterable_stack.begin(); it != iterable_stack.end(); it++)
+	{
+		std::cout << *it;
+	}
+	std::cout << std::endl;
 
 
 
@@ -334,10 +334,6 @@ int main(int argc, char** argv) {
 	std::cout << "*cit1: " << *cit1 << std::endl;
 	std::cout << "*cit2: " << *cit2 << std::endl;
 
-	// nope!
-	//cit2 = 67;
-
-	// sure
 	*it1 = 55;
 
 	print_vector(v1, 1);
@@ -359,148 +355,46 @@ int main(int argc, char** argv) {
 	std::cout << std::endl;
 
 	// // stack 
-	// ft::stack<int> stack0;
-	// stack0.push(1);
-	// stack0.push(2);
-	// stack0.push(3);
-	// stack0.push(4);
-	// print_stack(stack0, 0);
+	ft::stack<int> stack0;
+	stack0.push(1);
+	stack0.push(2);
+	stack0.push(3);
+	stack0.push(4);
+	print_stack(stack0, 0);
 
-	// ft::stack<int> stack1 = stack0;
-	// print_stack(stack1, 1);
+	ft::stack<int> stack1 = stack0;
+	print_stack(stack1, 1);
 
-	// ft::stack<int> stack2(stack1);
-	// print_stack(stack2, 2);
+	ft::stack<int> stack2(stack1);
+	print_stack(stack2, 2);
 
-	// stack1.pop();
+	stack1.pop();
 
-	// stack2.pop();
-	// stack2.pop();
+	stack2.pop();
+	stack2.pop();
 
-	// std::cout << stack0.top() << std::endl;
-	// std::cout << stack1.top() << std::endl;
-	// std::cout << stack2.top() << std::endl;
+	std::cout << stack0.top() << std::endl;
+	std::cout << stack1.top() << std::endl;
+	std::cout << stack2.top() << std::endl;
 
-	// stack2.pop();
-	// stack2.pop();
-	// std::cout << std::boolalpha << "Stack2 is empty: " << stack2.empty() << '\n';
-	// std::cout << std::boolalpha << "Stack0 is empty: " << stack0.empty() << '\n';
-	// std::cout << "Stack2 size: " << stack2.size() << '\n';
-	// std::cout << "Stack0 size: " << stack0.size() << '\n';
+	stack2.pop();
+	stack2.pop();
+	std::cout << std::boolalpha << "Stack2 is empty: " << stack2.empty() << '\n';
+	std::cout << std::boolalpha << "Stack0 is empty: " << stack0.empty() << '\n';
+	std::cout << "Stack2 size: " << stack2.size() << '\n';
+	std::cout << "Stack0 size: " << stack0.size() << '\n';
 
-	// std::cout << "1) " << std::boolalpha << (stack0 == stack1) << std::endl;
-	// std::cout << "2) " << std::boolalpha << (stack0 != stack1) << std::endl;
-	// std::cout << "3) " << std::boolalpha << (stack0 <  stack1) << std::endl;
-	// std::cout << "4) " << std::boolalpha << (stack0 >  stack1) << std::endl;
-	// std::cout << "5) " << std::boolalpha << (stack0 >= stack1) << std::endl;
-	// std::cout << "6) " << std::boolalpha << (stack0 <= stack1) << std::endl;
+	std::cout << "1) " << std::boolalpha << (stack0 == stack1) << std::endl;
+	std::cout << "2) " << std::boolalpha << (stack0 != stack1) << std::endl;
+	std::cout << "3) " << std::boolalpha << (stack0 <  stack1) << std::endl;
+	std::cout << "4) " << std::boolalpha << (stack0 >  stack1) << std::endl;
+	std::cout << "5) " << std::boolalpha << (stack0 >= stack1) << std::endl;
+	std::cout << "6) " << std::boolalpha << (stack0 <= stack1) << std::endl;
 
 
 
 
 	// map
-
-	// ft::map<int, int> m1;
-	// ft::map<int, int> m2;
-	// std::cout << m1.empty() << std::endl;
-	// std::cout << m1.size() << std::endl;
-
-	// ft::pair<int, int> test = ft::make_pair<int, int>(100, 40);
-	// std::cout << test.first << " " << test.second << std::endl;
-
-	// m1.insert(ft::make_pair<int, int>(4, 40));
-	// m1.insert(ft::make_pair<int, int>(5, 10));
-	// m1.insert(ft::make_pair<int, int>(3, 5555));
-	// m1.insert(ft::make_pair<int, int>(1, 600));
-	// m1.insert(ft::make_pair<int, int>(0, 450));
-	// m1.insert(ft::make_pair<int, int>(2, 790));
-
-	// m1.insert(ft::make_pair<int, int>(50,5));
-	// m1.insert(ft::make_pair<int, int>(30,3));
-	// m1.insert(ft::make_pair<int, int>(20,2));
-	// m1.insert(ft::make_pair<int, int>(40,4));
-	// m1.insert(ft::make_pair<int, int>(70,7));
-	// m1.insert(ft::make_pair<int, int>(60,6));
-	// m1.insert(ft::make_pair<int, int>(80,8));
-
-	// m2.insert(ft::make_pair<int, int>(4,4));
-	// m2.insert(ft::make_pair<int, int>(7,7));
-	// m2.insert(ft::make_pair<int, int>(6,6));
-	// m2.insert(ft::make_pair<int, int>(8,8));
-
-	// std::cout << "m1 empty: " << m1.empty() << std::endl;
-	// std::cout << "m1 size: " << m1.size() << std::endl;
-	// std::cout << "m1 map: ";
-	// // m1.printMap();
-	// std::cout << std::endl;
-	// std::cout << "m2 empty: " << m2.empty() << std::endl;
-	// std::cout << "m2 size: " << m2.size() << std::endl;
-	// // std::cout << "m2 map: "; m2.printMap();
-
-	// std::cout << std::endl;
-	// std::cout << "swapping m1 and m2 \n"; m1.swap(m2);
-	// std::cout << std::endl;
-
-	// std::cout << "m1 empty: " << m1.empty() << std::endl;
-	// std::cout << "m1 size: " << m1.size() << std::endl;
-	// // std::cout << "m1 map: "; m1.printMap();
-	// std::cout << std::endl;
-	// std::cout << "m2 empty: " << m2.empty() << std::endl;
-	// std::cout << "m2 size: " << m2.size() << std::endl;
-	// // std::cout << "m2 map: "; m2.printMap();
-
-	// std::cout << std::endl;
-
-	// m2[22] = 5;
-
-	// typename ft::map<int, int>::iterator fit = m2.begin();
-	// typename ft::map<int, int>::iterator fit2 = m2.end();
-	// for(; fit != fit2; ++fit)
-	// 	std::cout << fit->first << ":" << fit->second << " ";
-
-	// std::cout << std::endl;
-
-	// ft::map<int, int> m3;
-	// m3.insert(ft::make_pair<int, int>(5,50));
-	// m3.insert(ft::make_pair<int, int>(2,30));
-	// m3.insert(ft::make_pair<int, int>(1,10));
-	// m3.insert(ft::make_pair<int, int>(4,70));
-
-	// typename ft::map<int, int>::iterator m3it = m3.lower_bound(2);
-	// typename ft::map<int, int>::iterator m3it2 = m3.upper_bound(3);
-	// std::cout << m3it->first << std::endl;
-	// std::cout << m3it2->first << std::endl;
-
-	// typename ft::map<int, int>::iterator m3find = m3.find(1);
-	// std::cout << m3find->second << std::endl;
-
-	// std::cout << m2.at(22) << std::endl;
-
-	// std::cout << m1.empty() << std::endl;
-	// std::cout << m1.size() << std::endl;
-	// m1.printMap();
-	// std::cout << std::endl;
-	// m1.minNmax();
-
-
-	// std::cout << m1.erase(0) << std::endl;
-	// m1.erase(20);
-	// m1[40];
-	// m1.clear();
-	// m1.insert(ft::make_pair<int, int>(60,6));
-
-	// m1[25] = 4;
-
-	// std::cout << m1.count(4) << std::endl;
-	// m2.printMap();
-	// m2.erase(30);
-	// m2.printMap();
-	// m2.erase(50);
-	// m2.printMap();
-	// std::cout << "size " << m1.size() << std::endl;
-	// m1.erase(80);
-
-
 
 	ft::map<std::string, int> m1;
 	std::cout << m1.empty() << std::endl;
