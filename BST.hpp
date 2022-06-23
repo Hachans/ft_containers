@@ -68,18 +68,12 @@ template< typename Key, typename T, typename Compare = std::less<Key>
 			return(new_node);
 		}
 
-		node* copyTree(node* rt = NULL){
+		void copyTree(node* rt = NULL){
 			if(!rt)
-				return NULL;
-			node* nd = NULL;
-			if(nd == _bst)
-				nd = _new_node(ft::pair<key_type, mapped_type>(rt->data.first, rt->data.second));
-			else
-				nd = _new_node(ft::pair<key_type, mapped_type>(rt->data.first, rt->data.second), rt);
-
-			nd->left = copyTree(rt->left);
-			nd->right = copyTree(rt->right);
-			return nd;
+				return ;
+			_insert(ft::pair<key_type, mapped_type>(rt->data.first, rt->data.second));
+			copyTree(rt->left);
+			copyTree(rt->right);
 		}
 
 		size_type max_size() const{

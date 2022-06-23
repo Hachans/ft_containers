@@ -51,16 +51,8 @@ class map{
 		}
 
 		map( const map& other ): _comp(other._comp), _alloc(other._alloc){
-			// if(other._bst.size() > 200){
-			// 	clear();
-			// 	_bst._bst = _bst.copyTree(other._bst.getToRoot());
-			// }
-			// else{
-			const_iterator tmp = other.begin();
-			clear();
-			for(;tmp != other.end(); tmp++)
-				this->insert(*tmp);
-			}
+			_bst.copyTree(other._bst.getToRoot());
+		}
 
 		~map(){this->clear();}
 
@@ -70,7 +62,7 @@ class map{
 			if(*this == other)
 				return *this;
 			clear();
-			insert(other.begin(), other.end());
+			_bst.copyTree(other._bst.getToRoot());
 			return *this;
 		}
 
