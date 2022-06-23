@@ -35,7 +35,7 @@ template < typename T > class VecIter : public ft::iterator<std::random_access_i
 			return _p;
 		}
 
-		const reference operator*( void ) const {
+		const T& operator*( void ) const {
 			return *_p;
 		}
 

@@ -287,7 +287,10 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 
 		const_reference at( size_type pos ) const{
 			if (pos >= _size)
-				throw std::out_of_range("vector");
+				std::__throw_out_of_range_fmt(__N("vector::_M_range_check: __n "
+				       "(which is %zu) >= this->size() "
+				       "(which is %zu)"),
+				   pos, this->size());
 			return (_vec[pos]);
 		}
 
