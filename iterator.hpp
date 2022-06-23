@@ -80,16 +80,30 @@ class reverse_iterator : iterator<
 			return current;
 		}
 
-		reference operator*() const {
+		reference operator*() {
 			Iter tmp = current;
 			return *--tmp;
 		}
 
-		pointer operator->() const {
+		const reference operator*() const {
+			Iter tmp = current;
+			return *--tmp;
+		}
+
+		pointer operator->()  {
+			return addressof(operator*());
+		}
+
+		const pointer operator->() const {
 			return addressof(operator*());
 		}
 
 		reverse_iterator& operator++() {
+			--current;
+			return *this;
+		}
+
+		const reverse_iterator& operator++()const {
 			--current;
 			return *this;
 		}
@@ -100,7 +114,18 @@ class reverse_iterator : iterator<
 			return tmp;
 		}
 
+		const reverse_iterator operator++(int) const{
+			reverse_iterator tmp(*this);
+			--current;
+			return tmp;
+		}
+
 		reverse_iterator& operator--() {
+			++current;
+			return *this;
+		}
+
+		const reverse_iterator& operator--() const{
 			++current;
 			return *this;
 		}
@@ -110,7 +135,17 @@ class reverse_iterator : iterator<
 			++current; return tmp;
 		}
 
+		const reverse_iterator operator--(int) const{
+			reverse_iterator tmp(*this); 
+			++current; return tmp;
+		}
+
 		reverse_iterator& operator+=(difference_type n) {
+			current -= n;
+			return *this;
+		}
+
+		const reverse_iterator& operator+=(difference_type n) const{
 			current -= n;
 			return *this;
 		}
@@ -120,15 +155,32 @@ class reverse_iterator : iterator<
 			return *this;
 		}
 
-		reverse_iterator operator+( difference_type n ) const{
+		const reverse_iterator& operator-=(difference_type n)const {
+			current += n;
+			return *this;
+		}
+
+		reverse_iterator operator+( difference_type n ) {
 			return reverse_iterator(base() - n);
 		}
 
-		reverse_iterator operator-( difference_type n ) const{
+		const reverse_iterator operator+( difference_type n ) const{
+			return reverse_iterator(base() - n);
+		}
+
+		reverse_iterator operator-( difference_type n ) {
 			return reverse_iterator(base() + n);
 		}
 
-		reference operator[](difference_type n) const {
+		const reverse_iterator operator-( difference_type n ) const{
+			return reverse_iterator(base() + n);
+		}
+
+		reference operator[](difference_type n)  {
+			return base()[-n-1];
+		}
+
+		const reference operator[](difference_type n) const {
 			return base()[-n-1];
 		}
 };

@@ -19,8 +19,8 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 		typedef const value_type&							const_reference;
 		typedef typename Alloc::pointer						pointer;
 		typedef typename Alloc::const_pointer				const_pointer;
-		typedef VecIter<value_type>							iterator;
-		typedef VecIter<value_type>							const_iterator;
+		typedef ft::VecIter<value_type>						iterator;
+		typedef const ft::VecIter<value_type>				const_iterator;
 		typedef ft::reverse_iterator<iterator>				reverse_iterator;
 		typedef ft::reverse_iterator<const_iterator>		const_reverse_iterator;
 
@@ -128,16 +128,16 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 		}
 
 		iterator begin(){ return (iterator(this->_vec));}
-		const_iterator cbegin() const { return (const_iterator(this->_vec));}
+		const_iterator begin() const { return (const_iterator(this->_vec));}
 
 		iterator end(){ return (iterator(this->_vec + this->_size));}
-		const_iterator cend() const{ return (const_iterator(this->_vec + this->_size));}
+		const_iterator end() const{ return (const_iterator(this->_vec + this->_size));}
 
 		reverse_iterator rbegin(){ return (reverse_iterator(this->_vec + this->_size));}
-		const_reverse_iterator crbegin(){ return (const_reverse_iterator(this->_vec + this->_size));}
+		const_reverse_iterator rbegin()const{ return (const_reverse_iterator(this->_vec + this->_size));}
 
 		reverse_iterator rend(){ return (reverse_iterator(this->_vec));}
-		const_reverse_iterator crend(){ return (const_reverse_iterator(this->_vec));}
+		const_reverse_iterator rend()const{ return (const_reverse_iterator(this->_vec));}
 
 		bool empty( void ) const {
 			return this->_size > 0 ? false : true;
@@ -304,7 +304,7 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 	bool operator==( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ){
 		if (lhs.size() != rhs.size())
 			return false;
-		return equal(lhs.cbegin(), lhs.cend(), rhs.cbegin());
+		return equal(lhs.begin(), lhs.end(), rhs.begin());
 	}
 
 	template< typename T, typename Alloc >
@@ -314,9 +314,9 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 
 	template< typename T, typename Alloc >
 	bool operator<=( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ){
-		if (equal(lhs.cbegin(), lhs.cend(), rhs.cbegin()))
+		if (equal(lhs.begin(), lhs.end(), rhs.begin()))
 			return true;
-		return ft::lexicographical_compare(lhs.cbegin(), lhs.cend(), rhs.cbegin(), rhs.cend());
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 	}
 
 	template< typename T, typename Alloc >
@@ -326,7 +326,7 @@ template < typename T, typename Alloc = std::allocator<T> > class vector{
 
 	template< typename T, typename Alloc >
 	bool operator<( const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs ){
-		return ft::lexicographical_compare(lhs.cbegin(), lhs.cend(), rhs.cbegin(), rhs.cend());
+		return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 	}
 
 	template< typename T, typename Alloc >

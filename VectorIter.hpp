@@ -17,7 +17,7 @@ template < typename T > class VecIter : public ft::iterator<std::random_access_i
 		
 	private:
 
-		pointer _p;
+		mutable pointer _p;
 
 	public:
 
@@ -25,11 +25,19 @@ template < typename T > class VecIter : public ft::iterator<std::random_access_i
 		VecIter(pointer n): _p(n){}
 		~VecIter(){}
 
-		reference operator*( void ) const {
+		reference operator*( void ) {
 			return *_p;
 		}
 
-		pointer operator->() const {
+		pointer operator->() {
+			return _p;
+		}
+
+		const reference operator*( void ) const {
+			return *_p;
+		}
+
+		const T* operator->() const {
 			return _p;
 		}
 
@@ -41,6 +49,15 @@ template < typename T > class VecIter : public ft::iterator<std::random_access_i
 			++_p;
 			return *this;
 		}
+
+		const VecIter operator++( int )const{
+			return _p++;
+		}
+
+		const VecIter& operator++( void )const{
+			++_p;
+			return *this;
+		}
 		
 		VecIter operator--( int ){
 			return _p--;
@@ -49,6 +66,23 @@ template < typename T > class VecIter : public ft::iterator<std::random_access_i
 		VecIter& operator--( void ){
 			--_p;
 			return *this;
+		}
+
+		const VecIter operator--( int )const {
+			return _p--;
+		}
+
+		const VecIter& operator--( void )const{
+			--_p;
+			return *this;
+		}
+
+		difference_type operator-(const VecIter<value_type>& rhs)  {
+			return _p - rhs._p;
+		}
+
+		difference_type operator+(const VecIter<value_type>& rhs)  {
+			return _p + rhs._p;
 		}
 
 		difference_type operator-(const VecIter<value_type>& rhs) const {
@@ -69,16 +103,34 @@ template < typename T > class VecIter : public ft::iterator<std::random_access_i
 			return *this;
 		}
 
+		const VecIter& operator+=(difference_type n) const{
+			_p += n;
+			return *this;
+		}
+
 		VecIter& operator-=(difference_type n) {
 			_p -= n;
 			return *this;
 		}
 
-		VecIter operator-(difference_type rhs) const {
+		const VecIter& operator-=(difference_type n) const {
+			_p -= n;
+			return *this;
+		}
+
+		VecIter operator-(difference_type rhs){
 			return VecIter(_p - rhs);
 		}
 
-		VecIter operator+(difference_type rhs) const {
+		const VecIter operator-(difference_type rhs) const {
+			return VecIter(_p - rhs);
+		}
+
+		VecIter operator+(difference_type rhs){
+			return VecIter(_p + rhs);
+		}
+
+		const VecIter operator+(difference_type rhs) const {
 			return VecIter(_p + rhs);
 		}
 
